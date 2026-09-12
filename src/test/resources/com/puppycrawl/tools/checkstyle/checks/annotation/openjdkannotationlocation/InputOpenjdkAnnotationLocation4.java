@@ -2,7 +2,7 @@
 OpenjdkAnnotationLocation
 tokens = (default)CLASS_DEF, INTERFACE_DEF, PACKAGE_DEF, ENUM_CONSTANT_DEF, \
          ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, \
-         RECORD_DEF, COMPACT_CTOR_DEF
+         RECORD_DEF, COMPACT_CTOR_DEF, MODULE_DEF
 
 */
 
@@ -34,13 +34,13 @@ public class InputOpenjdkAnnotationLocation4 {
     }
 
     @Annotation @Annotation class Temp {}
-    // violation above, 'Annotations must be on a separate line from 'Temp'.'
 
     void methodNoAnnotation() {}
 
     void parameterlessSamelineInForEach() {
         @Annotation
         @Annotation int temp1;
+        // violation above 'Annotations must be on a separate line from 'temp1'.'
         for (@Annotation Object o : new Object[0]) break;
         for (@Annotation @Annotation Object o : new Object[0]) break;
         for (@Annotation Object o;;) break;

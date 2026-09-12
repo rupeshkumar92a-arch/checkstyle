@@ -2,7 +2,7 @@
 OpenjdkAnnotationLocation
 tokens = (default)CLASS_DEF, INTERFACE_DEF, PACKAGE_DEF, ENUM_CONSTANT_DEF, \
          ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, \
-         RECORD_DEF, COMPACT_CTOR_DEF
+         RECORD_DEF, COMPACT_CTOR_DEF, MODULE_DEF
 
 */
 
@@ -35,6 +35,7 @@ int good;
 void main() {
     @SuppressWarnings("unused")
     @Deprecated int local1 = 0;
+    // violation above 'Annotations must be on a separate line from 'local1'.'
     @Deprecated int local2 = 0;
     System.out.println(local1 + local2 + field1);
 }

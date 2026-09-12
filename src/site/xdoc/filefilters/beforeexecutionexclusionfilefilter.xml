@@ -67,7 +67,7 @@
             <tr>
               <td><a id="fileNamePattern"/><a href="#fileNamePattern">fileNamePattern</a></td>
               <td>Define regular expression to match the file name against.</td>
-              <td><a href="../property_types.html#Pattern">Pattern</a></td>
+              <td><a href="../property-types.html#Pattern">Pattern</a></td>
               <td><code>null</code></td>
               <td>7.2</td>
             </tr>
@@ -202,10 +202,6 @@
       </subsection>
       <subsection name="Example of Usage" id="BeforeExecutionExclusionFileFilter_Example_of_Usage">
         <ul>
-          <li>
-            <a href="https://github.com/search?q=path%3Asrc%2Fmain%2Fresources%20path%3A**%2Fgoogle_checks.xml+repo%3Acheckstyle%2Fcheckstyle+BeforeExecutionExclusionFileFilter">
-              Google Style</a>
-          </li>
           <li>
             <a href="https://github.com/search?q=path%3Asrc%2Fmain%2Fresources%20path%3A**%2Fsun_checks.xml+repo%3Acheckstyle%2Fcheckstyle+BeforeExecutionExclusionFileFilter">
               Sun Style</a>

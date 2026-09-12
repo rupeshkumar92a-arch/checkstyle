@@ -39,7 +39,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
  * Checks for missing Javadoc comments for a method or constructor. The scope to verify is
  * specified using the {@code Scope} class and defaults to {@code Scope.PUBLIC}. To verify
  * another scope, set property scope to a different
- * <a href="https://checkstyle.org/property_types.html#Scope">scope</a>.
+ * <a href="https://checkstyle.org/property-types.html#Scope">scope</a>.
  * </div>
  *
  * <p>
@@ -53,7 +53,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
  * For getters and setters for the property {@code allowMissingPropertyJavadoc}, the methods must
  * match exactly the structures below.
  * </p>
- * <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+ * {@snippet lang="text" :
  * public void setNumber(final int number)
  * {
  *     mNumber = number;
@@ -68,7 +68,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
  * {
  *     return false;
  * }
- * </code></pre></div>
+ * }
  *
  * @since 8.21
  */

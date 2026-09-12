@@ -38,11 +38,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.puppycrawl.tools.checkstyle.AbstractPathTestSupport;
 import com.puppycrawl.tools.checkstyle.bdd.InlineConfigParser;
@@ -96,20 +99,13 @@ public class XdocsExampleFileTest {
      * <a href="https://github.com/checkstyle/checkstyle/issues/21072">...</a>
      */
     private static final Set<String> SUPPRESSED_UNIQUENESS_CHECK_MODULES = Set.of(
-        "checks/annotation/annotationlocation/",
         "checks/coding/hiddenfield/",
-        "checks/coding/returncount/",
-        "checks/imports/avoidstarimport/",
         "checks/javadoc/javadocvariable/",
         "checks/javadoc/missingjavadoctype/",
         "checks/naming/illegalidentifiername/",
-        "checks/naming/localfinalvariablename/",
-        "checks/naming/patternvariablename/",
         "checks/outertypefilename/",
         "checks/regexp/regexpmultiline/",
-        "checks/regexp/regexpsingleline/",
-        "checks/trailingcomment/",
-        "checks/whitespace/filetabcharacter/"
+        "checks/regexp/regexpsingleline/"
     );
 
     @Test
@@ -243,6 +239,40 @@ public class XdocsExampleFileTest {
         }
     }
 
+    /**
+     * Tests that when a module has a default-config example (module element with zero
+     * configured properties), that example is the numerically-first one (Example1) in
+     * its directory. Convention is that a module's baseline/default behavior should be
+     * the first thing a reader encounters, with later examples layering on property
+     * configuration - this catches cases where the default example exists but is
+     * out of order.
+     *
+     * <p>This is distinct from testEveryModuleHasDefaultConfigExample, which
+     * only checks that a default-config example exists somewhere; a module can pass
+     * that test while failing this one if its default example isn't Example1.
+     *
+     * @throws IOException if an I/O error occurs
+     */
+    @Test
+    public void testDefaultConfigExampleIsFirst() throws IOException {
+        final List<String> violations = Collections.synchronizedList(new ArrayList<>());
+
+        try (Stream<Path> pathStream = Files.walk(
+                XdocsExamplesAstConsistencyTest.XDOCS_ROOT)) {
+            pathStream
+                .filter(Files::isDirectory)
+                .filter(XdocsExamplesAstConsistencyTest::isModuleDirectory)
+                .parallel()
+                .forEach(dir -> processDirectoryForDefaultConfigOrderCheck(dir, violations));
+        }
+
+        final String message = formatDefaultConfigOrderViolationsMessage(violations);
+
+        assertWithMessage(message)
+            .that(violations)
+            .isEmpty();
+    }
+
     private static Set<String> collectReferencedExamplePaths() throws Exception {
         final Set<String> referenced = new HashSet<>();
 
@@ -288,7 +318,7 @@ public class XdocsExampleFileTest {
 
     private static void scanFile(Path testFile, Path examplesResources, Path examplesNonCompilable,
             List<String> failures)
-            throws IOException {
+                    throws IOException {
         final String testContent = Files.readString(testFile);
 
         final String className = Path.of("src/xdocs-examples/java").toAbsolutePath()
@@ -313,7 +343,8 @@ public class XdocsExampleFileTest {
     }
 
     private static void scanExampleDirectory(Path exampleDir, String testContent,
-            Path testFile, List<String> failures) throws IOException {
+            Path testFile, List<String> failures)
+                    throws IOException {
         if (Files.exists(exampleDir) && Files.isDirectory(exampleDir)) {
             try (Stream<Path> exampleFiles = Files.list(exampleDir)) {
                 exampleFiles
@@ -335,7 +366,8 @@ public class XdocsExampleFileTest {
     }
 
     private static void checkUniquenessForModule(Path testFile, Path examplesResources,
-             Path examplesNonCompilable, List<String> failures) throws IOException {
+            Path examplesNonCompilable, List<String> failures)
+                    throws IOException {
         final String className = Path.of("src/xdocs-examples/java").toAbsolutePath()
                 .relativize(testFile.toAbsolutePath()).toString()
                 .replace(File.separator, ".")
@@ -377,7 +409,8 @@ public class XdocsExampleFileTest {
     }
 
     private static Map<String, List<String>> collectSignatures(Path exampleDir,
-               boolean suppressed, List<String> failures) throws IOException {
+                boolean suppressed, List<String> failures)
+                        throws IOException {
         final Map<String, List<String>> signatureToExamples = new HashMap<>();
 
         try (Stream<Path> exampleFiles = Files.list(exampleDir)) {
@@ -452,7 +485,7 @@ public class XdocsExampleFileTest {
         try {
             final TestInputConfiguration parsed =
                     InlineConfigParser.parse(exampleFile.toString());
-            final List<TestInputViolation> violations = parsed.getViolations();
+            final List<TestInputViolation> violations = parsed.violations();
 
             final boolean hasUnspecifiedMessage = violations.stream()
                     .anyMatch(violation -> violation.message() == null);
@@ -520,11 +553,133 @@ public class XdocsExampleFileTest {
             }
         }
 
-        int[] result = null;
-        if (startLine != -1 && endLine != -1) {
+        final int[] result;
+        if (startLine == -1 && endLine == -1) {
+            result = new int[0];
+        }
+        else {
             result = new int[] {startLine, endLine};
         }
         return result;
+    }
+
+    /**
+     * Processes a single module directory: if the module has a default-config example
+     * anywhere, checks that its numerically-first example (Example1) is that default
+     * example.
+     *
+     * @param dir the directory to check
+     * @param violations a thread-safe list to collect any discovered violations
+     */
+    private static void processDirectoryForDefaultConfigOrderCheck(Path dir,
+                                                                   List<String> violations) {
+        try {
+            final List<Path> examples = new ArrayList<>(
+                XdocsExamplesAstConsistencyTest.getExamplePropertyCoverageFiles(dir));
+            examples.addAll(XdocsExamplesAstConsistencyTest
+                .getNonCompilableExamplePropertyCoverageFiles(dir));
+
+            final String moduleName = XdocsExamplesAstConsistencyTest
+                .toModuleClassSimpleName(dir.getFileName().toString());
+
+            if (moduleName != null && !examples.isEmpty()
+                && !XdocsExamplesAstConsistencyTest.isModuleWithNoProperties(examples)) {
+                final String relativePath = XdocsExamplesAstConsistencyTest.XDOCS_ROOT
+                    .relativize(dir).toString().replace(File.separatorChar, '/');
+                final String xmlModuleName =
+                    XdocsExamplesAstConsistencyTest.stripCheckSuffix(moduleName);
+                checkDefaultConfigExampleOrder(examples, xmlModuleName,
+                    relativePath, violations);
+            }
+        }
+        catch (IOException | ParserConfigurationException | SAXException exception) {
+            throw new IllegalStateException("Failed processing directory: " + dir, exception);
+        }
+    }
+
+    /**
+     * Checks that a module's default-config example is its numerically-first one.
+     *
+     * @param examples the example files for the module
+     * @param xmlModuleName the module's simple name as it appears in the embedded XML
+     * @param relativePath the module directory path relative to XDOCS_ROOT
+     * @param violations a thread-safe list to collect any discovered violations
+     * @throws IOException if reading a file fails
+     * @throws ParserConfigurationException if a document builder cannot be created
+     * @throws SAXException if the XML content is malformed
+     */
+    private static void checkDefaultConfigExampleOrder(List<Path> examples,
+            String xmlModuleName, String relativePath, List<String> violations)
+                    throws IOException, ParserConfigurationException, SAXException {
+        final Path firstExample = examples.stream()
+            .filter(example -> {
+                return example.getFileName().toString()
+                    .matches("Example1(\\..+)?");
+            })
+            .findFirst()
+            .orElse(null);
+
+        if (firstExample != null && !isDefaultConfig(firstExample, xmlModuleName)) {
+            boolean anyDefaultExists = false;
+            for (Path example : examples) {
+                if (isDefaultConfig(example, xmlModuleName)) {
+                    anyDefaultExists = true;
+                    break;
+                }
+            }
+
+            if (anyDefaultExists) {
+                violations.add("Directory: " + relativePath
+                    + "\nDefault-config example exists but is not "
+                    + firstExample.getFileName()
+                    + " (should be the first example).");
+            }
+        }
+    }
+
+    /**
+     * Checks whether an example's module config block has zero configured properties.
+     *
+     * @param example the example file
+     * @param moduleName the module's simple name as it appears in the embedded XML
+     * @return true if the example demonstrates the default (zero-property) configuration
+     * @throws IOException if reading the file fails
+     * @throws ParserConfigurationException if a document builder cannot be created
+     * @throws SAXException if the XML content is malformed
+     */
+    private static boolean isDefaultConfig(Path example, String moduleName)
+            throws IOException, ParserConfigurationException, SAXException {
+        final String xmlBlock =
+            XdocsExamplesAstConsistencyTest.extractXmlConfigBlock(example);
+        final Element moduleElement;
+        if (xmlBlock == null) {
+            moduleElement = null;
+        }
+        else {
+            moduleElement = XdocsExamplesAstConsistencyTest
+                .parseConfigModuleElement(xmlBlock, moduleName);
+        }
+        return moduleElement != null
+            && XdocsExamplesAstConsistencyTest.collectPropertyNames(moduleElement).isEmpty();
+    }
+
+    /**
+     * Formats default-config-ordering violations into a single, readable error message.
+     *
+     * @param violations the list of violation strings
+     * @return a formatted string detailing all found ordering issues
+     */
+    private static String formatDefaultConfigOrderViolationsMessage(List<String> violations) {
+        final StringBuilder builder = new StringBuilder(1024);
+        if (!violations.isEmpty()) {
+            builder.append("Found ").append(violations.size())
+                .append(" module(s) where the default-config example is not first.\n\n");
+
+            violations.stream()
+                .sorted()
+                .forEach(violation -> builder.append(violation).append("\n\n"));
+        }
+        return builder.toString();
     }
 
 }

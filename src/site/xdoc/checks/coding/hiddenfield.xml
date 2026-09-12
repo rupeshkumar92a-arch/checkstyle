@@ -50,7 +50,7 @@
         <p>
           A method is recognized as a setter if it is in the following form
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-text">
+        <div class="wrapper"><pre class="prettyprint"><code>
 ${returnType} set${Name}(${anyType} ${name}) { ... }
         </code></pre></div>
 
@@ -60,8 +60,8 @@ ${returnType} set${Name}(${anyType} ${name}) { ... }
           capitalized form that appears in the method name. By default, it is expected
           that setter returns void, i.e. ${returnType} is 'void'. For example
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
-void setTime(long time) { ... }
+        <div class="wrapper"><pre class="prettyprint"><code>
+void setTime(long time) {  }
         </code></pre></div>
 
         <p>
@@ -70,9 +70,9 @@ void setTime(long time) { ... }
           definition of a setter is expanded, so that setter return type can also be
           a class in which setter is declared. For example
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 class PageBuilder {
-  PageBuilder setName(String name) { ... }
+  PageBuilder setName(String name) {  }
 }
         </code></pre></div>
 
@@ -96,35 +96,35 @@ class PageBuilder {
             <tr>
               <td><a id="ignoreAbstractMethods"/><a href="#ignoreAbstractMethods">ignoreAbstractMethods</a></td>
               <td>Control whether to ignore parameters of abstract methods.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>4.0</td>
             </tr>
             <tr>
               <td><a id="ignoreConstructorParameter"/><a href="#ignoreConstructorParameter">ignoreConstructorParameter</a></td>
               <td>Control whether to ignore constructor parameters.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>3.2</td>
             </tr>
             <tr>
               <td><a id="ignoreFormat"/><a href="#ignoreFormat">ignoreFormat</a></td>
               <td>Define the RegExp for names of variables and parameters to ignore.</td>
-              <td><a href="../../property_types.html#Pattern">Pattern</a></td>
+              <td><a href="../../property-types.html#Pattern">Pattern</a></td>
               <td><code>null</code></td>
               <td>3.2</td>
             </tr>
             <tr>
               <td><a id="ignoreSetter"/><a href="#ignoreSetter">ignoreSetter</a></td>
               <td>Allow to ignore the parameter of a property setter method.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>3.2</td>
             </tr>
             <tr>
               <td><a id="setterCanReturnItsClass"/><a href="#setterCanReturnItsClass">setterCanReturnItsClass</a></td>
               <td>Allow to expand the definition of a setter method to include methods that return the class' instance.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>6.3</td>
             </tr>

@@ -41,7 +41,7 @@
         <div>
           Checks that there are no
           <a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29">
-          &quot;magic numbers&quot;</a> where a magic
+          <code>"magic number"</code></a> where a magic
           number is a numeric literal that is not defined as a constant.
           By default, -1, 0, 1, and 2 are not considered to be magic numbers.
         </div>
@@ -49,7 +49,7 @@
         <p>Constant definition is any variable/field that has 'final' modifier.
           It is fine to have one constant defining multiple numeric literals within one expression:
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 static final int SECONDS_PER_DAY = 24 * 60 * 60;
 static final double SPECIAL_RATIO = 4.0 / 3.0;
 static final double SPECIAL_SUM = 1 + Math.E;
@@ -138,35 +138,35 @@ static final Integer ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE = new Integer(42);
             <tr>
               <td><a id="ignoreAnnotation"/><a href="#ignoreAnnotation">ignoreAnnotation</a></td>
               <td>Ignore magic numbers in annotation declarations.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>5.4</td>
             </tr>
             <tr>
               <td><a id="ignoreAnnotationElementDefaults"/><a href="#ignoreAnnotationElementDefaults">ignoreAnnotationElementDefaults</a></td>
               <td>Ignore magic numbers in annotation elements defaults.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.23</td>
             </tr>
             <tr>
               <td><a id="ignoreFieldDeclaration"/><a href="#ignoreFieldDeclaration">ignoreFieldDeclaration</a></td>
               <td>Ignore magic numbers in field declarations.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>6.6</td>
             </tr>
             <tr>
               <td><a id="ignoreHashCodeMethod"/><a href="#ignoreHashCodeMethod">ignoreHashCodeMethod</a></td>
               <td>Ignore magic numbers in hashCode methods.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>5.3</td>
             </tr>
             <tr>
               <td><a id="ignoreNumbers"/><a href="#ignoreNumbers">ignoreNumbers</a></td>
               <td>Specify non-magic numbers.</td>
-              <td><a href="../../property_types.html#double.5B.5D">double[]</a></td>
+              <td><a href="../../property-types.html#double.5B.5D">double[]</a></td>
               <td><code>-1, 0, 1, 2</code></td>
               <td>3.1</td>
             </tr>

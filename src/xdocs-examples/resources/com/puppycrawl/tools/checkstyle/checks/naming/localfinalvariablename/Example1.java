@@ -1,9 +1,7 @@
 /*xml
 <module name="Checker">
   <module name="TreeWalker">
-    <module name="LocalFinalVariableName">
-       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-    </module>
+    <module name="LocalFinalVariableName"/>
   </module>
 </module>
 */

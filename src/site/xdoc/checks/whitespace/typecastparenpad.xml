@@ -21,7 +21,7 @@
             <label for="toc-sub-Examples" class="toc-sub-toggle"><a href="#TypecastParenPad_Examples">Examples</a><span class="toc-sub-arrow"/></label>
             <ul class="toc-sublist">
               <li><a href="#Example1-config" class="toc-sublink">Default configuration</a></li>
-              <li><a href="#Example2-config" class="toc-sublink">option=space</a></li>
+              <li><a href="#Example2-config" class="toc-sublink">Require spaces</a></li>
             </ul>
           </li>
           <li><a href="#TypecastParenPad_Example_of_Usage">Example of Usage</a></li>
@@ -52,7 +52,7 @@
             <tr>
               <td><a id="option"/><a href="#option">option</a></td>
               <td>Specify policy on how to pad parentheses.</td>
-              <td><a href="../../property_types.html#PadOption">PadOption</a></td>
+              <td><a href="../../property-types.html#PadOption">PadOption</a></td>
               <td><code>nospace</code></td>
               <td>3.2</td>
             </tr>

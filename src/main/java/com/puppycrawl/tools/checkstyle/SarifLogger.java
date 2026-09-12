@@ -165,15 +165,16 @@ public final class SarifLogger extends AbstractAutomaticBean implements AuditLis
      *
      * @param outputStream where to log audit events
      * @param outputStreamOptions if {@code CLOSE} that should be closed in auditFinished()
-     * @throws IllegalArgumentException if outputStreamOptions is null
      * @throws IOException if there is reading errors.
+     * @throws IllegalArgumentException if outputStreamOptions is null
      * @noinspection deprecation
      * @noinspectionreason We are forced to keep AutomaticBean compatability
      *     because of maven-checkstyle-plugin. Until #12873.
      */
     public SarifLogger(
         OutputStream outputStream,
-        AutomaticBean.OutputStreamOptions outputStreamOptions) throws IOException {
+        AutomaticBean.OutputStreamOptions outputStreamOptions)
+                throws IOException {
         this(outputStream, OutputStreamOptions.valueOf(outputStreamOptions.name()));
     }
 
@@ -182,12 +183,13 @@ public final class SarifLogger extends AbstractAutomaticBean implements AuditLis
      *
      * @param outputStream where to log audit events
      * @param outputStreamOptions if {@code CLOSE} that should be closed in auditFinished()
-     * @throws IllegalArgumentException if outputStreamOptions is null
      * @throws IOException if there is reading errors.
+     * @throws IllegalArgumentException if outputStreamOptions is null
      */
     public SarifLogger(
         OutputStream outputStream,
-        OutputStreamOptions outputStreamOptions) throws IOException {
+        OutputStreamOptions outputStreamOptions)
+                throws IOException {
         if (outputStreamOptions == null) {
             throw new IllegalArgumentException("Parameter outputStreamOptions can not be null");
         }
@@ -497,8 +499,8 @@ public final class SarifLogger extends AbstractAutomaticBean implements AuditLis
     public static String escape(String value) {
         final int length = value.length();
         final StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            final char chr = value.charAt(i);
+        for (int index = 0; index < length; index++) {
+            final char chr = value.charAt(index);
             final String replacement = switch (chr) {
                 case '"' -> "\\\"";
                 case '\\' -> TWO_BACKSLASHES;

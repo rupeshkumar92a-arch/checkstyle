@@ -99,12 +99,12 @@ import com.puppycrawl.tools.checkstyle.utils.UnmodifiableCollectionUtil;
  * For example, if the following method is implementing a method required by
  * an interface, then the Javadoc could be done as:
  * </p>
- * <div class="wrapper"><pre class="prettyprint"><code class="language-java">
- * &#47;** {&#64;inheritDoc} *&#47;
+ * {@snippet lang="text" :
+ * /** {@inheritDoc} * /
  * public int checkReturnTag(final int aTagIndex,
  *                           JavadocTag[] aTags,
  *                           int aLineNo)
- * </code></pre></div>
+ * }
  *
  * @since 3.0
  */
@@ -271,7 +271,7 @@ public class JavadocMethodCheck extends AbstractJavadocCheck {
     /**
      * Setter to control when to print violations if the Javadoc being examined by this check
      * violates the tight html rules defined at
-     * <a href="https://checkstyle.org/writingjavadocchecks.html#Tight-HTML_rules">
+     * <a href="https://checkstyle.org/writing-javadoc-checks.html#Tight-HTML_rules">
      *     Tight-HTML Rules</a>.
      *
      * @param shouldReportViolation value to which the field shall be set to

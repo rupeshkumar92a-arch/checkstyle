@@ -1018,8 +1018,8 @@ public class SuppressWarningsCheckTest extends AbstractModuleTestSupport {
 
         final String[] expected = {
             "31:34: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
-            "38:23: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
-            "46:5: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
+            "40:23: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
+            "48:5: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
         };
 
         verifyWithInlineConfigParser(
@@ -1081,6 +1081,17 @@ public class SuppressWarningsCheckTest extends AbstractModuleTestSupport {
         verifyWithInlineConfigParser(
                 getNonCompilablePath("InputSuppressWarningsPatternVariables.java"),
                 expected);
+    }
+
+    @Test
+    public void testSuppressionWarningsModuleInfo() throws Exception {
+        final String[] expected = {
+            "14:19: " + getCheckMessage(MSG_KEY_SUPPRESSED_WARNING_NOT_ALLOWED, ""),
+        };
+
+        final String filename = "module-info/empty/module-info.java";
+
+        verifyWithInlineConfigParser(getNonCompilablePath(filename), expected);
     }
 
 }

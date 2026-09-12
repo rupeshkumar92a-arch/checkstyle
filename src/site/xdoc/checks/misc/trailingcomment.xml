@@ -22,7 +22,7 @@
             <ul class="toc-sublist">
               <li><a href="#Example1-config" class="toc-sublink">Default configuration</a></li>
               <li><a href="#Example2-config" class="toc-sublink">Enforce only comment on a line</a></li>
-              <li><a href="#Example3-config" class="toc-sublink">Check so that trailing comment with exact comments like "SUPPRESS CHECKSTYLE", "NOPMD", "NOSONAR" are suppressed</a></li>
+              <li><a href="#Example3-config" class="toc-sublink">So that a trailing comment matching legalComment is suppressed</a></li>
             </ul>
           </li>
           <li>
@@ -55,9 +55,9 @@
           comments are a bad practice. An end line comment would be one that is on
           the same line as actual code. For example:
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 a = b + c;      // Some insightful comment
-d = e / f;      /* Some insightful block comment &#42;/
+d = e / f;      /* Some insightful block comment * /
         </code></pre></div>
 
         <p>
@@ -112,14 +112,14 @@ d = e / f;      /* Some insightful block comment &#42;/
             <tr>
               <td><a id="format"/><a href="#format">format</a></td>
               <td>Specify pattern for strings allowed before the comment.</td>
-              <td><a href="../../property_types.html#Pattern">Pattern</a></td>
+              <td><a href="../../property-types.html#Pattern">Pattern</a></td>
               <td><code>^[\s});]*$</code></td>
               <td>3.4</td>
             </tr>
             <tr>
               <td><a id="legalComment"/><a href="#legalComment">legalComment</a></td>
               <td>Define pattern for text allowed in trailing comments. This pattern will not be applied to multiline comments.</td>
-              <td><a href="../../property_types.html#Pattern">Pattern</a></td>
+              <td><a href="../../property-types.html#Pattern">Pattern</a></td>
               <td><code>null</code></td>
               <td>4.2</td>
             </tr>
@@ -147,16 +147,19 @@ public class Example1 {
   int a;
   int b;
   int c;
-  int d; // violation 'Don't use trailing comments.'
+  int d; // ok, SUPPRESS CHECKSTYLE
+  // violation above 'Don't use trailing comments.'
 
   public static void main(String[] args) {
     int x = 10;
 
     if (/* OK */ x &gt; 5) {}
-    int a = 5; // violation 'Don't use trailing comments.'
+    int a = 5; // trailing comment
+    // violation above 'Don't use trailing comments.'
     doSomething(
             "param1"
-    ); // ok, by default such trailing of method/code-block ending is allowed
+    ); // trailing comment
+    // ok above, trailing comment after ');' is allowed by default
 
   }
 
@@ -183,19 +186,22 @@ public class Example1 {
         </p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-java">
 public class Example2 {
-  int a; // violation 'Don't use trailing comments.'
-  int b; // violation 'Don't use trailing comments.'
-  int c; // violation 'Don't use trailing comments.'
-  int d; // violation 'Don't use trailing comments.'
+  int a;
+  int b;
+  int c;
+  int d; // ok, SUPPRESS CHECKSTYLE
+  // violation above 'Don't use trailing comments.'
 
   public static void main(String[] args) {
     int x = 10;
 
     if (/* OK, this comment does not end the line */ x &gt; 5) {}
-    int a = 5; // violation 'Don't use trailing comments.'
+    int a = 5; // trailing comment
+    // violation above 'Don't use trailing comments.'
     doSomething(
             "param1"
-    ); // violation 'Don't use trailing comments.'
+    ); // trailing comment
+    // violation above 'Don't use trailing comments.'
 
   }
 
@@ -205,15 +211,14 @@ public class Example2 {
 </code></pre></div><hr class="example-separator"/>
 
         <p id="Example3-config">
-          To configure check so that trailing comment with exact comments like
-          &quot;SUPPRESS CHECKSTYLE&quot;, &quot;NOPMD&quot;, &quot;NOSONAR&quot;
-          are suppressed:
+          To configure the check so that a trailing comment matching
+          legalComment is suppressed:
         </p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-xml">
 &lt;module name="Checker"&gt;
   &lt;module name="TreeWalker"&gt;
     &lt;module name="TrailingComment"&gt;
-      &lt;property name="legalComment" value="^ (SUPPRESS CHECKSTYLE|NOPMD|NOSONAR)$"/&gt;
+      &lt;property name="legalComment" value="^ ok, SUPPRESS CHECKSTYLE$"/&gt;
     &lt;/module&gt;
   &lt;/module&gt;
 &lt;/module&gt;
@@ -227,16 +232,19 @@ public class Example3 {
   int a;
   int b;
   int c;
-  int d; // violation 'Don't use trailing comments.'
+  int d; // ok, SUPPRESS CHECKSTYLE
+  // ok above, matches legalComment pattern
 
   public static void main(String[] args) {
     int x = 10;
 
     if (/* OK */ x &gt; 5) {}
-    int a = 5; // violation 'Don't use trailing comments.'
+    int a = 5; // trailing comment
+    // violation above 'Don't use trailing comments.'
     doSomething(
             "param1"
-    ); // ok, by default such trailing of method/code-block ending is allowed
+    ); // trailing comment
+    // ok above, trailing comment after ');' is allowed by default
 
   }
 
@@ -270,7 +278,8 @@ public class UseCase1 {
   int a; // SUPPRESS CHECKSTYLE - OK, comment starts with " SUPPRESS CHECKSTYLE"
   int b; // NOPMD - OK, comment starts with " NOPMD"
   int c; // NOSONAR - OK, comment starts with " NOSONAR"
-  int d; // violation 'Don't use trailing comments.'
+  int d; // some comment - does not match legalComment
+  // violation above 'Don't use trailing comments.'
 }
 </code></pre></div><hr class="example-separator"/>
 
@@ -302,7 +311,8 @@ public class UseCase2 {
     ); // FIXME: handle edge cases - ok, matches legalComment pattern
 
     int b = 10; // trailingcomment - ok, matches legalComment pattern
-    int c = 15; // violation 'Don't use trailing comments.'
+    int c = 15; // some comment - does not match legalComment
+    // violation above 'Don't use trailing comments.'
   }
 
   private static void doSomething(String param) {
