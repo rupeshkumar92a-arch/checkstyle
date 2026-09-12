@@ -57,13 +57,13 @@ public class PackageObjectFactory implements ModuleFactory {
 
         /**
          * Searching from registered checkstyle modules and from packages given in constructor.
-         **/
+         */
         SEARCH_REGISTERED_PACKAGES,
         /**
          * As SEARCH_REGISTERED_PACKAGES and also try to load class from all of packages given in
          * constructor.
          * Required for eclipse-cs plugin.
-         **/
+         */
         TRY_IN_ALL_REGISTERED_PACKAGES,
 
     }
@@ -170,7 +170,7 @@ public class PackageObjectFactory implements ModuleFactory {
 
     /**
      * Creates a new instance of a class from a given name, or that name
-     * concatenated with &quot;Check&quot;. If the name is
+     * concatenated with {@code "Check"}. If the name is
      * a class name, creates an instance of the named class. Otherwise, creates
      * an instance of a class name obtained by concatenating the given name
      * to a package name from a given list of package names.
@@ -377,7 +377,7 @@ public class PackageObjectFactory implements ModuleFactory {
     }
 
     /**
-     * Searching to class with given name (or name concatenated with &quot;Check&quot;) in existing
+     * Searching to class with given name (or name concatenated with {@code "Check"}) in existing
      * packages. Returns instance if class found or, otherwise, null.
      *
      * @param name the name of a class.
@@ -432,6 +432,7 @@ public class PackageObjectFactory implements ModuleFactory {
         fillChecksFromJavadocPackage();
         fillChecksFromMetricsPackage();
         fillChecksFromModifierPackage();
+        fillChecksFromModulesPackage();
         fillChecksFromNamingPackage();
         fillChecksFromRegexpPackage();
         fillChecksFromSizesPackage();
@@ -514,6 +515,8 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.coding.EqualsHashCodeCheck");
         NAME_TO_FULL_MODULE_NAME.put("ExplicitInitializationCheck",
                 BASE_PACKAGE + ".checks.coding.ExplicitInitializationCheck");
+        NAME_TO_FULL_MODULE_NAME.put("ExpressionOverBlockLambdaCheck",
+                BASE_PACKAGE + ".checks.coding.ExpressionOverBlockLambdaCheck");
         NAME_TO_FULL_MODULE_NAME.put("FallThroughCheck",
                 BASE_PACKAGE + ".checks.coding.FallThroughCheck");
         NAME_TO_FULL_MODULE_NAME.put("FinalLocalVariableCheck",
@@ -612,6 +615,8 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.coding.TextBlockGoogleStyleFormattingCheck");
         NAME_TO_FULL_MODULE_NAME.put("UnusedLocalVariableCheck",
                 BASE_PACKAGE + ".checks.coding.UnusedLocalVariableCheck");
+        NAME_TO_FULL_MODULE_NAME.put("UnusedPrivateFieldCheck",
+                BASE_PACKAGE + ".checks.coding.UnusedPrivateFieldCheck");
         NAME_TO_FULL_MODULE_NAME.put("UnusedCatchParameterShouldBeUnnamedCheck",
                 BASE_PACKAGE + ".checks.coding.UnusedCatchParameterShouldBeUnnamedCheck");
         NAME_TO_FULL_MODULE_NAME.put("UnusedLambdaParameterShouldBeUnnamedCheck",
@@ -666,6 +671,8 @@ public class PackageObjectFactory implements ModuleFactory {
      * Fill short-to-full module names map with Checks from imports package.
      */
     private static void fillChecksFromImportsPackage() {
+        NAME_TO_FULL_MODULE_NAME.put("AvoidModuleImportCheck",
+                BASE_PACKAGE + ".checks.imports.AvoidModuleImportCheck");
         NAME_TO_FULL_MODULE_NAME.put("AvoidStarImportCheck",
                 BASE_PACKAGE + ".checks.imports.AvoidStarImportCheck");
         NAME_TO_FULL_MODULE_NAME.put("AvoidStaticImportCheck",
@@ -678,8 +685,12 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.imports.ImportControlCheck");
         NAME_TO_FULL_MODULE_NAME.put("ImportOrderCheck",
                 BASE_PACKAGE + ".checks.imports.ImportOrderCheck");
+        NAME_TO_FULL_MODULE_NAME.put("ModuleImportOrderCheck",
+                BASE_PACKAGE + ".checks.imports.ModuleImportOrderCheck");
         NAME_TO_FULL_MODULE_NAME.put("RedundantImportCheck",
                 BASE_PACKAGE + ".checks.imports.RedundantImportCheck");
+        NAME_TO_FULL_MODULE_NAME.put("UnnecessaryFullyQualifiedTypeCheck",
+                BASE_PACKAGE + ".checks.imports.UnnecessaryFullyQualifiedTypeCheck");
         NAME_TO_FULL_MODULE_NAME.put("UnusedImportsCheck",
                 BASE_PACKAGE + ".checks.imports.UnusedImportsCheck");
     }
@@ -702,28 +713,46 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.javadoc.AtclauseOrderCheck");
         NAME_TO_FULL_MODULE_NAME.put("IllegalBlockTagCheck",
                 BASE_PACKAGE + ".checks.javadoc.IllegalBlockTagCheck");
+        NAME_TO_FULL_MODULE_NAME.put("InappropriateJavadocBlockTagsOnPackageCheck",
+                BASE_PACKAGE + ".checks.javadoc.InappropriateJavadocBlockTagsOnPackageCheck");
+        NAME_TO_FULL_MODULE_NAME.put("InappropriateJavadocBlockTagsOnTypeCheck",
+                BASE_PACKAGE + ".checks.javadoc.InappropriateJavadocBlockTagsOnTypeCheck");
+        NAME_TO_FULL_MODULE_NAME.put("InappropriateJavadocBlockTagsOnFieldCheck",
+                BASE_PACKAGE + ".checks.javadoc.InappropriateJavadocBlockTagsOnFieldCheck");
         NAME_TO_FULL_MODULE_NAME.put("InvalidJavadocPositionCheck",
                 BASE_PACKAGE + ".checks.javadoc.InvalidJavadocPositionCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocBlockTagLocationCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocBlockTagLocationCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocContentLocationCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocContentLocationCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocEndCommentDelimiterCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocEndCommentDelimiterCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocLeadingAsteriskAlignCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocLeadingAsteriskAlignCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocLinkFirstOccurrenceCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocLinkFirstOccurrenceCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocLinkWellKnownApiCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocLinkWellKnownApiCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocMethodCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocMethodCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocMissingLeadingAsteriskCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocMissingLeadingAsteriskCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocMissingWhitespaceAfterAsteriskCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocMissingWhitespaceAfterAsteriskCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocNoErrorInThrowsTagCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocNoErrorInThrowsTagCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocPackageCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocPackageCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocParagraphCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocParagraphCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocParamOrderCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocParamOrderCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocRegexpCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocRegexpCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocTagContinuationIndentationCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocTagContinuationIndentationCheck");
+        NAME_TO_FULL_MODULE_NAME.put("JavadocThrowsOrderCheck",
+                BASE_PACKAGE + ".checks.javadoc.JavadocThrowsOrderCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocTypeCheck",
                 BASE_PACKAGE + ".checks.javadoc.JavadocTypeCheck");
         NAME_TO_FULL_MODULE_NAME.put("JavadocVariableCheck",
@@ -736,6 +765,10 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.javadoc.MissingJavadocTypeCheck");
         NAME_TO_FULL_MODULE_NAME.put("NonEmptyAtclauseDescriptionCheck",
                 BASE_PACKAGE + ".checks.javadoc.NonEmptyAtclauseDescriptionCheck");
+        NAME_TO_FULL_MODULE_NAME.put("PreferCodeOrSnippetJavadocInlineTagCheck",
+                BASE_PACKAGE + ".checks.javadoc.PreferCodeOrSnippetJavadocInlineTagCheck");
+        NAME_TO_FULL_MODULE_NAME.put("PreferLiteralJavadocInlineTagCheck",
+                BASE_PACKAGE + ".checks.javadoc.PreferLiteralJavadocInlineTagCheck");
         NAME_TO_FULL_MODULE_NAME.put("RequireEmptyLineBeforeBlockTagGroupCheck",
                 BASE_PACKAGE + ".checks.javadoc.RequireEmptyLineBeforeBlockTagGroupCheck");
         NAME_TO_FULL_MODULE_NAME.put("SingleLineJavadocCheck",
@@ -778,6 +811,14 @@ public class PackageObjectFactory implements ModuleFactory {
                 BASE_PACKAGE + ".checks.modifier.ModifierOrderCheck");
         NAME_TO_FULL_MODULE_NAME.put("RedundantModifierCheck",
                 BASE_PACKAGE + ".checks.modifier.RedundantModifierCheck");
+    }
+
+    /**
+     * Fill short-to-full module names map with Checks from modules package.
+     */
+    private static void fillChecksFromModulesPackage() {
+        NAME_TO_FULL_MODULE_NAME.put("ModuleDirectiveOrderCheck",
+                BASE_PACKAGE + ".checks.modules.ModuleDirectiveOrderCheck");
     }
 
     /**

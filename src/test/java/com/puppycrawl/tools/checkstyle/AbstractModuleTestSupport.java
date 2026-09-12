@@ -83,8 +83,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      * Creates a default module configuration {@link DefaultConfiguration} for a given object
      * of type {@link Class}.
      *
-     * @param clazz a {@link Class} type object.
-     * @return default module configuration for the given {@link Class} instance.
+     * @param clazz a {@code Class} type object.
+     * @return default module configuration for the given {@code Class} instance.
      */
     protected static DefaultConfiguration createModuleConfig(Class<?> clazz) {
         return new DefaultConfiguration(clazz.getName());
@@ -93,8 +93,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
     /**
      * Creates {@link Checker} instance based on the given {@link Configuration} instance.
      *
-     * @param moduleConfig {@link Configuration} instance.
-     * @return {@link Checker} instance based on the given {@link Configuration} instance.
+     * @param moduleConfig {@code Configuration} instance.
+     * @return {@code Checker} instance based on the given {@code Configuration} instance.
      * @throws Exception if an exception occurs during checker configuration.
      */
     protected final Checker createChecker(Configuration moduleConfig)
@@ -139,9 +139,9 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      * Creates {@link DefaultConfiguration} for the {@link TreeWalker}
      * based on the given {@link Configuration} instance.
      *
-     * @param config {@link Configuration} instance.
-     * @return {@link DefaultConfiguration} for the {@link TreeWalker}
-     *     based on the given {@link Configuration} instance.
+     * @param config {@code Configuration} instance.
+     * @return {@code DefaultConfiguration} for the {@code TreeWalker}
+     *     based on the given {@code Configuration} instance.
      */
     protected static DefaultConfiguration createTreeWalkerConfig(Configuration config) {
         final DefaultConfiguration rootConfig =
@@ -157,8 +157,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
     /**
      * Creates {@link DefaultConfiguration} for the given {@link Configuration} instance.
      *
-     * @param config {@link Configuration} instance.
-     * @return {@link DefaultConfiguration} for the given {@link Configuration} instance.
+     * @param config {@code Configuration} instance.
+     * @return {@code DefaultConfiguration} for the given {@code Configuration} instance.
      */
     protected static DefaultConfiguration createRootConfig(Configuration config) {
         final DefaultConfiguration rootConfig = new DefaultConfiguration(ROOT_MODULE_NAME);
@@ -239,14 +239,14 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final DefaultConfiguration configWithoutFilters =
                 testInputConfiguration.createConfigurationWithoutFilters();
         final List<TestInputViolation> violationsWithoutFilters =
-                new ArrayList<>(testInputConfiguration.getViolations());
-        violationsWithoutFilters.addAll(testInputConfiguration.getFilteredViolations());
+                new ArrayList<>(testInputConfiguration.violations());
+        violationsWithoutFilters.addAll(testInputConfiguration.filteredViolations());
         Collections.sort(violationsWithoutFilters);
         verifyViolations(configWithoutFilters, filePath, violationsWithoutFilters);
         verify(configWithoutFilters, filePath, expectedUnfiltered);
         final DefaultConfiguration configWithFilters =
                 testInputConfiguration.createConfiguration();
-        verifyViolations(configWithFilters, filePath, testInputConfiguration.getViolations());
+        verifyViolations(configWithFilters, filePath, testInputConfiguration.violations());
         verify(configWithFilters, filePath, expectedFiltered);
     }
 
@@ -264,8 +264,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final TestInputConfiguration testInputConfiguration =
                 InlineConfigParser.parseWithXmlHeader(filePath);
         final Configuration xmlConfig =
-                testInputConfiguration.getXmlConfiguration();
-        verifyViolations(xmlConfig, filePath, testInputConfiguration.getViolations());
+                testInputConfiguration.xmlConfiguration();
+        verifyViolations(xmlConfig, filePath, testInputConfiguration.violations());
         verify(xmlConfig, filePath, expected);
     }
 
@@ -282,7 +282,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
             String configPath,
             String filePath,
             String... expected)
-            throws Exception {
+                    throws Exception {
         final Configuration config =
                 ConfigurationLoader.loadConfiguration(
                         configPath,
@@ -307,7 +307,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final DefaultConfiguration parsedConfig =
                 testInputConfiguration.createConfiguration();
         final List<String> actualViolations = getActualViolationsForFile(parsedConfig, filePath);
-        verifyViolations(filePath, testInputConfiguration.getViolations(), actualViolations);
+        verifyViolations(filePath, testInputConfiguration.violations(), actualViolations);
         assertWithMessage("Violations for %s differ.", filePath)
             .that(actualViolations)
             .containsExactlyElementsIn(expected);
@@ -334,8 +334,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
                 testInputConfiguration1.createConfiguration();
         final TestInputConfiguration testInputConfiguration2 =
                 InlineConfigParser.parse(filePath2);
-        verifyViolations(parsedConfig, filePath1, testInputConfiguration1.getViolations());
-        verifyViolations(parsedConfig, filePath2, testInputConfiguration2.getViolations());
+        verifyViolations(parsedConfig, filePath1, testInputConfiguration1.violations());
+        verifyViolations(parsedConfig, filePath2, testInputConfiguration2.violations());
         verify(createChecker(parsedConfig),
                 new File[] {new File(filePath1), new File(filePath2)},
                 filePath1,
@@ -365,8 +365,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final TestInputConfiguration testInputConfiguration2 = InlineConfigParser.parse(filePath2);
         final DefaultConfiguration parsedConfig2 = testInputConfiguration.createConfiguration();
         final File[] inputs = {new File(filePath1), new File(filePath2)};
-        verifyViolations(parsedConfig, filePath1, testInputConfiguration.getViolations());
-        verifyViolations(parsedConfig2, filePath2, testInputConfiguration2.getViolations());
+        verifyViolations(parsedConfig, filePath1, testInputConfiguration.violations());
+        verifyViolations(parsedConfig2, filePath2, testInputConfiguration2.violations());
         verify(createChecker(parsedConfig), inputs, ImmutableMap.of(
             filePath1, expectedFromFile1,
             filePath2, expectedFromFile2));
@@ -415,7 +415,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
                 InlineConfigParser.parse(filePath);
         final DefaultConfiguration parsedConfig =
                 testInputConfiguration.createConfiguration();
-        verifyViolations(parsedConfig, filePath, testInputConfiguration.getViolations());
+        verifyViolations(parsedConfig, filePath, testInputConfiguration.violations());
         verify(parsedConfig, filePath, expected);
     }
 
@@ -469,7 +469,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final TestInputConfiguration testInputConfiguration =
                 InlineConfigParser.parseWithXmlHeader(inputFile);
         final Configuration parsedConfig =
-                testInputConfiguration.getXmlConfiguration();
+                testInputConfiguration.xmlConfiguration();
         final List<File> filesToCheck = Collections.singletonList(new File(inputFile));
         final String basePath = Path.of("").toAbsolutePath().toString();
 
@@ -508,7 +508,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
         final TestInputConfiguration testInputConfiguration =
                 InlineConfigParser.parseWithXmlHeader(inputFile);
         final Configuration parsedConfig =
-                testInputConfiguration.getXmlConfiguration();
+                testInputConfiguration.xmlConfiguration();
         final List<File> filesToCheck = Collections.singletonList(new File(inputFile));
         final String basePath = Path.of("").toAbsolutePath().toString();
 
@@ -544,7 +544,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      * This implementation uses overloaded
      * {@link AbstractModuleTestSupport#verify(Checker, String, String, String...)} method inside.
      *
-     * @param checker {@link Checker} instance.
+     * @param checker {@code Checker} instance.
      * @param fileName file name to verify.
      * @param expected an array of expected messages.
      * @throws Exception if exception occurs during verification process.
@@ -597,7 +597,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      * This implementation uses overloaded
      * {@link AbstractModuleTestSupport#verify(Checker, File[], String, String...)} method inside.
      *
-     * @param checker {@link Checker} instance.
+     * @param checker {@code Checker} instance.
      * @param processedFilename file name to verify.
      * @param messageFileName message file name.
      * @param expected an array of expected messages.
@@ -617,7 +617,7 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      *  Performs verification of the given files against the array of
      *  expected messages using the provided {@link Checker} instance.
      *
-     *  @param checker {@link Checker} instance.
+     *  @param checker {@code Checker} instance.
      *  @param processedFiles list of files to verify.
      *  @param messageFileName message file name.
      *  @param expected an array of expected messages.
@@ -762,7 +762,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      */
     private static void verifyContent(
             String expectedOutputFile,
-            ByteArrayOutputStream outputStream) throws IOException {
+            ByteArrayOutputStream outputStream)
+                    throws IOException {
         final String expectedContent = readFile(expectedOutputFile);
         final String actualContent =
                 toLfLineEnding(outputStream.toString(StandardCharsets.UTF_8));
@@ -793,7 +794,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
     private static void verifyCleanedMessageContent(
             String expectedOutputFile,
             ByteArrayOutputStream outputStream,
-            String basePath) throws IOException {
+            String basePath)
+                    throws IOException {
         final String expectedContent = readFile(expectedOutputFile);
         final String rawActualContent =
                 toLfLineEnding(outputStream.toString(StandardCharsets.UTF_8));
@@ -822,7 +824,8 @@ public abstract class AbstractModuleTestSupport extends AbstractPathTestSupport 
      * @throws Exception if exception occurs during verification process.
      */
     private List<String> getActualViolationsForFile(Configuration config,
-                                                    String file) throws Exception {
+                                                    String file)
+            throws Exception {
         stream.flush();
         stream.reset();
         final List<File> files = Collections.singletonList(new File(file));

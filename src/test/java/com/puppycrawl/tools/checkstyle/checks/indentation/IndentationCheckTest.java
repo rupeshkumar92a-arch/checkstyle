@@ -61,7 +61,7 @@ public class IndentationCheckTest extends AbstractModuleTestSupport {
 
     private static IndentComment[] getLinesWithWarnAndCheckComments(String fileName,
             final int tabWidth)
-            throws IOException {
+                    throws IOException {
         final List<IndentComment> result = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(Path.of(fileName))) {
             int lineNumber = 1;
@@ -196,7 +196,7 @@ public class IndentationCheckTest extends AbstractModuleTestSupport {
 
     private void verifyWarns(Configuration config, String filePath,
                     String... expected)
-                    throws Exception {
+                            throws Exception {
         final int tabWidth = Integer.parseInt(config.getProperty("tabWidth"));
         final IndentComment[] linesWithWarn =
                         getLinesWithWarnAndCheckComments(filePath, tabWidth);
@@ -208,7 +208,8 @@ public class IndentationCheckTest extends AbstractModuleTestSupport {
     }
 
     private void verify(Configuration config, String filePath, String[] expected,
-            final IndentComment... linesWithWarn) throws Exception {
+            final IndentComment... linesWithWarn)
+                    throws Exception {
         final Checker checker = createChecker(config);
         checker.addListener(new IndentAudit(linesWithWarn));
         verify(checker, filePath, expected);
@@ -3553,7 +3554,7 @@ public class IndentationCheckTest extends AbstractModuleTestSupport {
     /**
      * Verifies that the arguments of {@link IndentationCheck#MSG_ERROR},
      * {@link IndentationCheck#MSG_CHILD_ERROR}, {@link IndentationCheck#MSG_CHILD_ERROR_MULTI},
-     * {@link IndentationCheck#MSG_CHILD_ERROR_MULTI} are in appropriate order.
+     * {@code IndentationCheck#MSG_CHILD_ERROR_MULTI} are in appropriate order.
      *
      * <p>In other tests, the argument 0 and text before it are chopped off and only the rest of
      * messages are verified. Therefore, the argument 0 is required to be the first argument in

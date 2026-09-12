@@ -24,8 +24,14 @@
               <li><a href="#Example2-config" class="toc-sublink">Accept lines up to 120 characters long</a></li>
               <li><a href="#Example3-config" class="toc-sublink">Ignore lines that begin with <code>" * "</code>code, followed by just one word, such as within a Javadoc comment</a></li>
               <li><a href="#Example4-config" class="toc-sublink">Only validate xml and property files and ignore other extensions</a></li>
-              <li><a href="#Example5-config" class="toc-sublink">Check to validate <code>import</code> statements</a></li>
-              <li><a href="#Example6-config" class="toc-sublink">To prevent this check from flagging lines in text-blocks, with side effects</a></li>
+            </ul>
+          </li>
+          <li>
+            <input type="checkbox" id="toc-sub-UseCases" class="toc-sub-toggle-checkbox" checked="checked"/>
+            <label for="toc-sub-UseCases" class="toc-sub-toggle"><a href="#LineLength_Use_Cases">Use Cases</a><span class="toc-sub-arrow"/></label>
+            <ul class="toc-sublist">
+              <li><a href="#UseCase1-config" class="toc-sublink">Check to validate <code>import</code> statements</a></li>
+              <li><a href="#UseCase2-config" class="toc-sublink">To prevent this check from flagging lines in text-blocks, with side effects</a></li>
             </ul>
           </li>
           <li><a href="#LineLength_Example_of_Usage">Example of Usage</a></li>
@@ -85,21 +91,21 @@ import java.util.regex.Pattern; // The length of this comment will be taken into
             <tr>
               <td><a id="fileExtensions"/><a href="#fileExtensions">fileExtensions</a></td>
               <td>Specify the file extensions of the files to process.</td>
-              <td><a href="../../property_types.html#String.5B.5D">String[]</a></td>
+              <td><a href="../../property-types.html#String.5B.5D">String[]</a></td>
               <td><code>all files</code></td>
               <td>8.24</td>
             </tr>
             <tr>
               <td><a id="ignorePattern"/><a href="#ignorePattern">ignorePattern</a></td>
               <td>Specify pattern for lines to ignore.</td>
-              <td><a href="../../property_types.html#Pattern">Pattern</a></td>
+              <td><a href="../../property-types.html#Pattern">Pattern</a></td>
               <td><code>^(package|import) .*</code></td>
               <td>3.0</td>
             </tr>
             <tr>
               <td><a id="max"/><a href="#max">max</a></td>
               <td>Specify the maximum line length allowed.</td>
-              <td><a href="../../property_types.html#int">int</a></td>
+              <td><a href="../../property-types.html#int">int</a></td>
               <td><code>80</code></td>
               <td>3.0</td>
             </tr>
@@ -274,9 +280,11 @@ class Example4 {
         """;
   }
 }
-</code></pre></div><hr class="example-separator"/>
+</code></pre></div>
+      </subsection>
 
-        <p id="Example5-config">
+      <subsection name="Use Cases" id="LineLength_Use_Cases">
+        <p id="UseCase1-config">
           To configure check to validate <code>import</code> statements:
         </p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-xml">
@@ -288,7 +296,7 @@ class Example4 {
   &lt;/module&gt;
 &lt;/module&gt;
 </code></pre></div>
-        <p id="Example5-code">
+        <p id="UseCase1-code">
           Example:
         </p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-java">
@@ -300,7 +308,7 @@ import static com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck.MSG_K
  * This is a short Javadoc comment.
  * ThisJavadocCommentIsAReallyLongWordThatExceedsDefaultLineLimitOfEightyCharacters.
  */
-class Example5 {
+class UseCase1 {
   // violation 3 lines above 'Line is longer'
   void testMethod(String str) {
     str = MSG_KEY;
@@ -319,7 +327,7 @@ class Example5 {
   }
 }
 </code></pre></div><hr class="example-separator"/>
-        <p id="Example6-config">
+        <p id="UseCase2-config">
           To prevent this check from flagging lines in text-blocks, with
           <a href="https://github.com/checkstyle/checkstyle/issues/17707">side effects</a>:
         </p>
@@ -336,7 +344,7 @@ class Example5 {
   &lt;/module&gt;
 &lt;/module&gt;
 </code></pre></div>
-        <p id="Example6-code">
+        <p id="UseCase2-code">
           Example:
         </p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-java">
@@ -348,7 +356,7 @@ import static com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck.MSG_K
  * This is a short Javadoc comment.
  * ThisJavadocCommentIsAReallyLongWordThatExceedsDefaultLineLimitOfEightyCharacters.
  */
-class Example6 {
+class UseCase2 {
 
   void testMethod(String str) {
     str = MSG_KEY;

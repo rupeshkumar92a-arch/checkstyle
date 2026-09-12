@@ -74,11 +74,21 @@
     <module name="JavadocLeadingAsteriskAlign"/>
     <module name="RequireEmptyLineBeforeBlockTagGroup"/>
     <module name="JavadocTagContinuationIndentation"/>
+    <module name="JavadocEndCommentDelimiter"/>
 
     <!-- Tag conventions -->
     <module name="AtclauseOrder"/>
+    <module name="JavadocParamOrder"/>
+    <module name="JavadocThrowsOrder"/>
+    <module name="JavadocNoErrorInThrowsTag"/>
     <module name="NonEmptyAtclauseDescription"/>
     <module name="MissingDeprecated"/>
+    <module name="JavadocRegexp">
+      <property name="format"
+                value="(?m)^\s*\*\s*@param\s+\S+\s*[-:,](?=\s|$)"/>
+      <message key="javadoc.regexp.match"
+               value="Punctuation should not be inserted before the description of the parameter"/>
+    </module>
 
     <!-- Required Tags --> <!-- @param --> <!-- @return --> <!-- @throws -->
     <module name="JavadocMethod">
@@ -96,6 +106,17 @@
 
     <!-- First Sentence -->
     <module name="SummaryJavadoc"/>
+
+    <!-- Avoid Latin -->
+    <module name="JavadocRegexp">
+      <property name="format"
+                value="(^|\W)(aka|i\.e\.|e\.g\.|viz\.)(\W|$)"/>
+      <property name="ignoreCase" value="true"/>
+      <property name="ignoreMarkup" value="true"/>
+    </module>
+    <!-- Inline Links -->
+    <module name="JavadocLinkWellKnownApi"/>
+    <module name="JavadocLinkFirstOccurrence"/>
 
     <!-- https://checkstyle.org/filters/suppressionxpathfilter.html -->
     <module name="SuppressionXpathFilter">

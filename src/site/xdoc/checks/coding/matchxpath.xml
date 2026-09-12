@@ -20,7 +20,8 @@
             <input type="checkbox" id="toc-sub-Examples" class="toc-sub-toggle-checkbox" checked="checked"/>
             <label for="toc-sub-Examples" class="toc-sub-toggle"><a href="#MatchXpath_Examples">Examples</a><span class="toc-sub-arrow"/></label>
             <ul class="toc-sublist">
-              <li><a href="#Example1-config" class="toc-sublink">The following example demonstrates validation of methods order, so that public methods should come before the private ones</a></li>
+              <li><a href="#Example1-config" class="toc-sublink">The following example demonstrates the default configuration (no xpath query) that do nothing</a></li>
+              <li><a href="#Example2-config" class="toc-sublink">The following example demonstrates validation of methods order, so that public methods should come before the private ones</a></li>
             </ul>
           </li>
           <li>
@@ -85,7 +86,7 @@
             <tr>
               <td><a id="query"/><a href="#query">query</a></td>
               <td>Specify Xpath query.</td>
-              <td><a href="../../property_types.html#String">String</a></td>
+              <td><a href="../../property-types.html#String">String</a></td>
               <td><code/></td>
               <td>8.39</td>
             </tr>
@@ -94,7 +95,30 @@
       </subsection>
 
       <subsection name="Examples" id="MatchXpath_Examples">
-        <p id="Example1-config">
+        <p id="Example1-config">The following example demonstrates the default
+        configuration (no xpath query) that do nothing</p>
+        <div class="wrapper"><pre class="prettyprint"><code class="language-xml">
+&lt;module name="Checker"&gt;
+  &lt;module name="TreeWalker"&gt;
+    &lt;module name="MatchXpath"&gt;
+    &lt;/module&gt;
+  &lt;/module&gt;
+&lt;/module&gt;
+</code></pre></div>
+        <p id="Example1-code">Example:</p>
+        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+public class Example1 {
+  public void method1() { }
+
+  private void method2() { }
+  public void method3() { }
+
+  private void method4() { }
+  public void method5() { }
+  private void method6() { }
+}
+</code></pre></div><hr class="example-separator"/>
+        <p id="Example2-config">
           The following example demonstrates validation of methods order, so that public methods
           should come before the private ones:</p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-xml">
@@ -110,9 +134,9 @@
   &lt;/module&gt;
 &lt;/module&gt;
 </code></pre></div>
-        <p id="Example1-code">Example:</p>
+        <p id="Example2-code">Example:</p>
         <div class="wrapper"><pre class="prettyprint"><code class="language-java">
-public class Example1 {
+public class Example2 {
   public void method1() { }
   // violation below 'Private methods must appear after public methods'
   private void method2() { }
@@ -125,7 +149,7 @@ public class Example1 {
 </code></pre></div><hr class="example-separator"/>
         <p>
           Checkstyle provides <a href="https://checkstyle.org/cmdline.html">command line tool</a>
-          and <a href="https://checkstyle.org/writingchecks.html#The_Checkstyle_SDK_Gui">GUI
+          and <a href="https://checkstyle.org/writing-checks.html#The_Checkstyle_SDK_Gui">GUI
           application</a> with options to show AST and to ease usage of Xpath queries.
         </p>
         <p><b>-T</b> option prints AST tree of the checked file.</p>

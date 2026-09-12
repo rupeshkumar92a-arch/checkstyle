@@ -296,7 +296,7 @@ markdownlint)
   ;;
 
 no-error-kafka)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo "CS_version: ${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -318,7 +318,7 @@ EOF
 
 no-error-pmd)
   export MAVEN_OPTS="-XX:MaxRAMPercentage=90"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo "CS_version: ${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -332,6 +332,7 @@ no-error-pmd)
   cd pmd
   mvn -e --no-transfer-progress verify --show-version --errors --batch-mode \
                 -DskipTests \
+                -DskipITs \
                 -Dmaven.javadoc.skip=true \
                 -Dmaven.source.skip=true \
                 -Dpmd.skip=true \
@@ -348,7 +349,7 @@ no-error-pmd)
   ;;
 
 no-error-hazelcast)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo "CS_version: ${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean package -Passembly,no-validations
   echo "Checkout Hazelcast sources..."
@@ -406,9 +407,10 @@ EOF
   ;;
 
 no-error-xwiki)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   ANTLR4_VERSION="$(getMavenProperty 'antlr4.version')"
   echo "version:${CS_POM_VERSION} antlr4:${ANTLR4_VERSION}"
+
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
   checkout_from "https://github.com/xwiki/xwiki-commons.git"
@@ -446,8 +448,7 @@ no-error-xwiki)
   cd ..
   removeFolderWithProtectedFiles xwiki-rendering
   cd ..
-  checkout_from https://github.com/xwiki/xwiki-platform.git \
-    "16906187c4ab5d3c""cf93cd4818ad577579a7e7eb"
+  checkout_from https://github.com/xwiki/xwiki-platform.git
   cd .ci-temp/xwiki-platform
   # Validate xwiki-platform
   mvn -e --no-transfer-progress checkstyle:check@default -Dcheckstyle.version="${CS_POM_VERSION}"
@@ -456,7 +457,7 @@ no-error-xwiki)
   ;;
 
 no-error-test-sbe)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo version:"$CS_POM_VERSION"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -610,7 +611,7 @@ release-dry-run)
 
 assembly-run-all-jar)
   ./mvnw -e --no-transfer-progress clean package -Passembly,no-validations
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo version:"$CS_POM_VERSION"
   mkdir -p .ci-temp
   FOLDER=src/it/resources/com/google/checkstyle/test/chapter7javadoc/rule73wherejavadocrequired
@@ -687,7 +688,7 @@ check-since-version)
 
   if [ -f "$NEW_CHECK_FILE" ]; then
     echo "New Check detected: $NEW_CHECK_FILE"
-    CS_RELEASE_VERSION="$(getCheckstylePomVersionWithoutSnapshot)"
+    CS_RELEASE_VERSION="$(getPomVersionWithoutSnapshot)"
     echo "CS Release version: $CS_RELEASE_VERSION"
 
     if [[ $CS_RELEASE_VERSION != *.0 ]]; then
@@ -934,7 +935,7 @@ sonarqube)
   ;;
 
 no-error-pgjdbc)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -949,7 +950,7 @@ no-error-pgjdbc)
   ;;
 
 no-error-orekit)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean package -Passembly,no-validations
   echo "Checkout target sources ..."
@@ -976,7 +977,7 @@ no-error-orekit)
   ;;
 
 no-error-hibernate-search)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -997,7 +998,7 @@ no-error-hibernate-search)
 
 no-error-checkstyles-sevntu)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   ./mvnw -e --no-transfer-progress compile verify -Psevntu \
@@ -1008,7 +1009,7 @@ no-error-checkstyles-sevntu)
 
 no-error-sevntu-checks)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1025,7 +1026,7 @@ no-error-sevntu-checks)
 
 no-error-checkstyle-openrewrite-recipes)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1040,7 +1041,7 @@ no-error-checkstyle-openrewrite-recipes)
 
 no-error-contribution)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1059,7 +1060,7 @@ no-error-contribution)
 
 no-error-methods-distance)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1072,7 +1073,7 @@ no-error-methods-distance)
   ;;
 
 no-error-equalsverifier)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean package -Passembly,no-validations
   echo "Checkout target sources ..."
@@ -1089,7 +1090,7 @@ no-error-equalsverifier)
 
 no-error-strata)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1108,7 +1109,7 @@ no-error-strata)
 
 no-error-spring-integration)
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1123,7 +1124,7 @@ no-error-spring-integration)
   ;;
 
 no-error-htmlunit)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean package -Passembly,no-validations
   echo "Checkout target sources ..."
@@ -1144,7 +1145,7 @@ no-error-htmlunit)
   ;;
 
 no-error-spotbugs)
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   ./mvnw -e --no-transfer-progress clean install -Pno-validations
   echo "Checkout target sources ..."
@@ -1161,7 +1162,7 @@ no-error-trino)
   echo "Building checkstyle..."
   ./mvnw -e --no-transfer-progress clean install -Pno-validations -DskipTests
   echo "Resolving Checkstyle version from pom.xml..."
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo "CS_version: ${CS_POM_VERSION}"
   echo "Cloning Trino sources..."
   checkout_from https://github.com/trinodb/trino.git "f45e24a240b089a6499c9bc1a4193b3fa""ba798ef"
@@ -1175,7 +1176,7 @@ no-error-trino)
 
 no-exception-struts)
   export MAVEN_OPTS="-XX:MaxRAMPercentage=90"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1193,7 +1194,7 @@ no-exception-struts)
 no-exception-checkstyle-sevntu)
   export MAVEN_OPTS="-Xmx4g"
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1212,7 +1213,7 @@ no-exception-checkstyle-sevntu)
 no-exception-checkstyle-sevntu-javadoc)
   export MAVEN_OPTS="-Xmx4g"
   set -e
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1231,7 +1232,7 @@ no-exception-checkstyle-sevntu-javadoc)
 
 no-exception-guava)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   checkout_from https://github.com/checkstyle/contribution
@@ -1248,7 +1249,7 @@ no-exception-guava)
 
 no-exception-hibernate-orm)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   checkout_from https://github.com/checkstyle/contribution
@@ -1265,7 +1266,7 @@ no-exception-hibernate-orm)
 
 no-exception-spotbugs)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1282,7 +1283,7 @@ no-exception-spotbugs)
 
 no-exception-spoon)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1299,7 +1300,7 @@ no-exception-spoon)
 
 no-exception-spring-framework)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1316,7 +1317,7 @@ no-exception-spring-framework)
 
 no-exception-hbase)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   checkout_from https://github.com/checkstyle/contribution
@@ -1333,7 +1334,7 @@ no-exception-hbase)
 
 no-exception-Pmd-elasticsearch-lombok-ast)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1352,7 +1353,7 @@ no-exception-Pmd-elasticsearch-lombok-ast)
 
 no-exception-alot-of-projects)
   export MAVEN_OPTS="-Xmx4g"
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   echo CS_version: "${CS_POM_VERSION}"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   checkout_from https://github.com/checkstyle/contribution
@@ -1376,8 +1377,7 @@ no-warning-imports-guava)
   export MAVEN_OPTS="-Xmx4g"
   PROJECTS=checks-import-order/projects-to-test-imports-guava.properties
   CONFIG=checks-import-order/checks-imports-error-guava.xml
-  REPORT=reports/guava/site/index.html
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1386,7 +1386,12 @@ no-warning-imports-guava)
       --allowExcludes -p "$BRANCH" -r ../../.. \
       --useShallowClone \
       --mode single -xm "-Dcheckstyle.failsOnError=false"
-  RESULT=$(grep -A 5 "&#160;Warning</td>" $REPORT | cat)
+  REPORT="reports/$BRANCH/guava/checkstyle-result.xml"
+  if [[ ! -f "$REPORT" ]]; then
+    echo "Report does not exist: $REPORT"
+    exit 1
+  fi
+  RESULT=$(grep 'severity="warning"' "$REPORT" || true)
   cd ../../
   removeFolderWithProtectedFiles contribution
   if [ -z "$RESULT" ]; then
@@ -1402,8 +1407,7 @@ no-warning-imports-guava)
 no-warning-imports-java-design-patterns)
   PROJECTS=checks-import-order/projects-to-test-imports-java-design-patterns.properties
   CONFIG=checks-import-order/checks-imports-error-java-design-patterns.xml
-  REPORT=reports/java-design-patterns/site/index.html
-  CS_POM_VERSION="$(getCheckstylePomVersion)"
+  CS_POM_VERSION="$(getPomVersion)"
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   echo CS_version: "${CS_POM_VERSION}"
   checkout_from https://github.com/checkstyle/contribution
@@ -1412,7 +1416,12 @@ no-warning-imports-java-design-patterns)
       --allowExcludes -p "$BRANCH" -r ../../..\
       --useShallowClone \
       --mode single
-  RESULT=$(grep -A 5 "&#160;Warning</td>" $REPORT | cat)
+  REPORT="reports/$BRANCH/java-design-patterns/checkstyle-result.xml"
+  if [[ ! -f "$REPORT" ]]; then
+    echo "Report does not exist: $REPORT"
+    exit 1
+  fi
+  RESULT=$(grep 'severity="warning"' "$REPORT" || true)
   cd ../../
   removeFolderWithProtectedFiles contribution
   if [ -z "$RESULT" ]; then
@@ -1598,16 +1607,7 @@ javadoc)
   ;;
 
 openrewrite-checkstyle-auto-fix)
-  echo "Cloning and building OpenRewrite recipes..."
-  PROJECT_ROOT="$(pwd)"
   export MAVEN_OPTS="-Xmx4g -Xms2g"
-
-  mkdir -p .ci-temp && cd .ci-temp
-  git clone https://github.com/checkstyle/checkstyle-openrewrite-recipes.git
-  cd checkstyle-openrewrite-recipes
-  ./mvnw -e --no-transfer-progress clean install -DskipTests
-
-  cd "$PROJECT_ROOT"
 
   echo "Running Checkstyle validation to get report for openrewrite..."
   set +e
@@ -1620,21 +1620,10 @@ openrewrite-checkstyle-auto-fix)
 
   echo "Checking for uncommitted changes..."
   ./.ci/print-diff-as-patch.sh target/rewrite.patch
-
-  rm -rf .ci-temp/checkstyle-openrewrite-recipes
   ;;
 
 openrewrite-refaster-rules-1)
-  echo "Cloning and building OpenRewrite recipes..."
-  PROJECT_ROOT="$(pwd)"
   export MAVEN_OPTS="-Xmx4g -Xms2g"
-
-  mkdir -p .ci-temp && cd .ci-temp
-  git clone https://github.com/checkstyle/checkstyle-openrewrite-recipes.git
-  cd checkstyle-openrewrite-recipes
-  ./mvnw -e --no-transfer-progress clean install -DskipTests
-
-  cd "$PROJECT_ROOT"
 
   echo "Running RefasterRules Part 1 recipes..."
   ./mvnw -e --no-transfer-progress rewrite:run \
@@ -1643,21 +1632,10 @@ openrewrite-refaster-rules-1)
 
   echo "Checking for uncommitted changes..."
   ./.ci/print-diff-as-patch.sh target/rewrite.patch
-
-  rm -rf .ci-temp/checkstyle-openrewrite-recipes
   ;;
 
 openrewrite-refaster-rules-2)
-  echo "Cloning and building OpenRewrite recipes..."
-  PROJECT_ROOT="$(pwd)"
   export MAVEN_OPTS="-Xmx4g -Xms2g"
-
-  mkdir -p .ci-temp && cd .ci-temp
-  git clone https://github.com/checkstyle/checkstyle-openrewrite-recipes.git
-  cd checkstyle-openrewrite-recipes
-  ./mvnw -e --no-transfer-progress clean install -DskipTests
-
-  cd "$PROJECT_ROOT"
 
   echo "Running RefasterRules Part 2 recipes..."
   ./mvnw -e --no-transfer-progress rewrite:run \
@@ -1666,21 +1644,10 @@ openrewrite-refaster-rules-2)
 
   echo "Checking for uncommitted changes..."
   ./.ci/print-diff-as-patch.sh target/rewrite.patch
-
-  rm -rf .ci-temp/checkstyle-openrewrite-recipes
   ;;
 
 openrewrite-static-analysis)
-  echo "Cloning and building OpenRewrite recipes..."
-  PROJECT_ROOT="$(pwd)"
   export MAVEN_OPTS="-Xmx4g -Xms2g"
-
-  mkdir -p .ci-temp && cd .ci-temp
-  git clone https://github.com/checkstyle/checkstyle-openrewrite-recipes.git
-  cd checkstyle-openrewrite-recipes
-  ./mvnw -e --no-transfer-progress clean install -DskipTests
-
-  cd "$PROJECT_ROOT"
 
   echo "Running StaticAnalysis recipes..."
   ./mvnw -e --no-transfer-progress rewrite:run \
@@ -1689,8 +1656,6 @@ openrewrite-static-analysis)
 
   echo "Checking for uncommitted changes..."
   ./.ci/print-diff-as-patch.sh target/rewrite.patch
-
-  rm -rf .ci-temp/checkstyle-openrewrite-recipes
   ;;
 
 *)

@@ -93,19 +93,13 @@ public class AllChecksCompactSourceCoverageTest {
         "AnnotationUseStyleCheck",
         "AnonInnerLengthCheck",
         "ArrayTrailingCommaCheck",
-        "ArrayTypeStyleCheck",
         "AtclauseOrderCheck",
         "AvoidDoubleBraceInitializationCheck",
         "AvoidEscapedUnicodeCharactersCheck",
-        "AvoidInlineConditionalsCheck",
-        "AvoidNestedBlocksCheck",
-        "AvoidNoArgumentSuperConstructorCallCheck",
         "AvoidStarImportCheck",
-        "AvoidStaticImportCheck",
         "BooleanExpressionComplexityCheck",
         "CatchParameterNameCheck",
         "ClassDataAbstractionCouplingCheck",
-        "ClassMemberImpliedModifierCheck",
         "ClassTypeParameterNameCheck",
         "CommentsIndentationCheck",
         "ConstantNameCheck",
@@ -122,7 +116,6 @@ public class AllChecksCompactSourceCoverageTest {
         "EmptyForIteratorPadCheck",
         "EmptyLineSeparatorCheck",
         "EqualsAvoidNullCheck",
-        "EqualsHashCodeCheck",
         "ExecutableStatementCountCheck",
         "ExplicitInitializationCheck",
         "FallThroughCheck",
@@ -147,7 +140,6 @@ public class AllChecksCompactSourceCoverageTest {
         "ImportControlCheck",
         "ImportOrderCheck",
         "IndentationCheck",
-        "InnerAssignmentCheck",
         "InterfaceIsTypeCheck",
         "InterfaceMemberImpliedModifierCheck",
         "InterfaceTypeParameterNameCheck",
@@ -156,6 +148,8 @@ public class AllChecksCompactSourceCoverageTest {
         "JavadocBlockTagLocationCheck",
         "JavadocContentLocationCheck",
         "JavadocLeadingAsteriskAlignCheck",
+        "JavadocLinkFirstOccurrenceCheck",
+        "JavadocLinkWellKnownApiCheck",
         "JavadocMethodCheck",
         "JavadocMissingLeadingAsteriskCheck",
         "JavadocMissingWhitespaceAfterAsteriskCheck",
@@ -185,18 +179,13 @@ public class AllChecksCompactSourceCoverageTest {
         "MissingNullCaseInSwitchCheck",
         "MissingOverrideCheck",
         "MissingOverrideOnRecordAccessorCheck",
-        "MissingSwitchDefaultCheck",
         "ModifiedControlVariableCheck",
-        "ModifierOrderCheck",
         "MultipleStringLiteralsCheck",
-        "MultipleVariableDeclarationsCheck",
         "MutableExceptionCheck",
         "NPathComplexityCheck",
         "NestedForDepthCheck",
         "NestedIfDepthCheck",
         "NestedTryDepthCheck",
-        "NoArrayTrailingCommaCheck",
-        "NoCloneCheck",
         "NoCodeInFileCheck",
         "NoEnumTrailingCommaCheck",
         "NoLineWrapCheck",
@@ -205,7 +194,6 @@ public class AllChecksCompactSourceCoverageTest {
         "NoWhitespaceBeforeCheck",
         "NonEmptyAtclauseDescriptionCheck",
         "NumericalPrefixesInfixesSuffixesCharacterCaseCheck",
-        "OneStatementPerLineCheck",
         "OneTopLevelClassCheck",
         "OperatorWrapCheck",
         "OuterTypeNumberCheck",
@@ -260,13 +248,12 @@ public class AllChecksCompactSourceCoverageTest {
         "UnusedLambdaParameterShouldBeUnnamedCheck",
         "UnusedLocalVariableCheck",
         "UnusedTryResourceShouldBeUnnamedCheck",
-        "UpperEllCheck",
+        "UnnecessaryFullyQualifiedTypeCheck",
         "UseEnhancedSwitchCheck",
         "VariableDeclarationUsageDistanceCheck",
         "WhenShouldBeUsedCheck",
         "WhitespaceAfterCheck",
-        "WhitespaceAroundCheck",
-        "WriteTagCheck"
+        "WhitespaceAroundCheck"
     );
 
     @Test
@@ -380,7 +367,8 @@ public class AllChecksCompactSourceCoverageTest {
      * @throws Exception if an input file cannot be parsed.
      */
     private static List<Set<String>> collectNonDefaultPropertiesPerInput(
-            Path folder, String checkClassName) throws Exception {
+            Path folder, String checkClassName)
+                    throws Exception {
         final List<Set<String>> nonDefaultsPerInput = new ArrayList<>();
         final List<Path> inputs;
         try (Stream<Path> files = Files.list(folder)) {
@@ -390,7 +378,7 @@ public class AllChecksCompactSourceCoverageTest {
         }
         for (Path input : inputs) {
             final TestInputConfiguration config = InlineConfigParser.parse(input.toString());
-            for (ModuleInputConfiguration module : config.getChildrenModules()) {
+            for (ModuleInputConfiguration module : config.childrenModules()) {
                 if (checkClassName.equals(module.getModuleName())) {
                     nonDefaultsPerInput.add(module.getNonDefaultProperties().keySet());
                 }

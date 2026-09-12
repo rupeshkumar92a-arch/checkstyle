@@ -68,22 +68,23 @@
 
     <menu name="About">
       <item name="Checkstyle" href="index.html"/>
-      <item name="Release Notes" href="releasenotes.html"/>
+      <item name="Release Notes" href="release-notes.html"/>
       <item name="Consulting" href="consulting.html"/>
       <item name="Sponsoring" href="sponsoring.html"/>
     </menu>
 
     <menu name="Documentation">
+      <item name="Getting Started" href="getting-started.html"/>
       <item name="Configuration" href="config.html">
-        <item name="Property Types" href="property_types.html"/>
-        <item name="System Properties" href="config_system_properties.html"/>
+        <item name="Property Types" href="property-types.html"/>
+        <item name="System Properties" href="config-system-properties.html"/>
         <item name="XPath" href="xpath.html"/>
       </item>
 
       <item name="Running" href="running.html">
-        <item name="Ant Task" href="anttask.html"/>
+        <item name="Ant Task" href="ant-task.html"/>
         <item name="Command Line" href="cmdline.html"/>
-        <item name="Result Reports" href="result_reports.html"/>
+        <item name="Result Reports" href="result-reports.html"/>
       </item>
 
       <item name="Checks" href="checks.html">
@@ -139,6 +140,8 @@
           <item name="EqualsAvoidNull" href="checks/coding/equalsavoidnull.html"/>
           <item name="EqualsHashCode" href="checks/coding/equalshashcode.html"/>
           <item name="ExplicitInitialization" href="checks/coding/explicitinitialization.html"/>
+          <item name="ExpressionOverBlockLambda"
+                href="checks/coding/expressionoverblocklambda.html"/>
           <item name="FallThrough" href="checks/coding/fallthrough.html"/>
           <item name="FinalLocalVariable" href="checks/coding/finallocalvariable.html"/>
           <item name="HiddenField" href="checks/coding/hiddenfield.html"/>
@@ -201,6 +204,7 @@
           <item name="UnusedLambdaParameterShouldBeUnnamed"
                 href="checks/coding/unusedlambdaparametershouldbeunnamed.html"/>
           <item name="UnusedLocalVariable" href="checks/coding/unusedlocalvariable.html"/>
+          <item name="UnusedPrivateField" href="checks/coding/unusedprivatefield.html"/>
           <item name="UnusedTryResourceShouldBeUnnamed"
                 href="checks/coding/unusedtryresourceshouldbeunnamed.html"/>
           <item name="UseEnhancedSwitch"
@@ -216,33 +220,53 @@
           <item name="RegexpHeader" href="checks/header/regexpheader.html"/>
         </item>
         <item name="Imports" href="checks/imports/index.html" collapse="true">
+          <item name="AvoidModuleImport" href="checks/imports/avoidmoduleimport.html"/>
           <item name="AvoidStarImport" href="checks/imports/avoidstarimport.html"/>
           <item name="AvoidStaticImport" href="checks/imports/avoidstaticimport.html"/>
           <item name="CustomImportOrder" href="checks/imports/customimportorder.html"/>
           <item name="IllegalImport" href="checks/imports/illegalimport.html"/>
           <item name="ImportControl" href="checks/imports/importcontrol.html"/>
           <item name="ImportOrder" href="checks/imports/importorder.html"/>
+          <item name="ModuleImportOrder" href="checks/imports/moduleimportorder.html"/>
           <item name="RedundantImport" href="checks/imports/redundantimport.html"/>
+          <item name="UnnecessaryFullyQualifiedType"
+                href="checks/imports/unnecessaryfullyqualifiedtype.html"/>
           <item name="UnusedImports" href="checks/imports/unusedimports.html"/>
         </item>
         <item name="Javadoc Comments" href="checks/javadoc/index.html" collapse="true">
           <item name="AtclauseOrder" href="checks/javadoc/atclauseorder.html"/>
           <item name="IllegalBlockTag" href="checks/javadoc/illegalblocktag.html"/>
+          <item name="InappropriateJavadocBlockTagsOnField"
+                href="checks/javadoc/inappropriatejavadocblocktagsonfield.html"/>
+          <item name="InappropriateJavadocBlockTagsOnPackageCheck"
+                href="checks/javadoc/inappropriatejavadocblocktagsonpackage.html"/>
+          <item name="InappropriateJavadocBlockTagsOnType"
+                href="checks/javadoc/inappropriatejavadocblocktagsontype.html"/>
           <item name="InvalidJavadocPosition" href="checks/javadoc/invalidjavadocposition.html"/>
           <item name="JavadocBlockTagLocation" href="checks/javadoc/javadocblocktaglocation.html"/>
           <item name="JavadocContentLocation" href="checks/javadoc/javadoccontentlocation.html"/>
+          <item name="JavadocEndCommentDelimiter"
+                href="checks/javadoc/javadocendcommentdelimiter.html"/>
           <item name="JavadocLeadingAsteriskAlign"
                 href="checks/javadoc/javadocleadingasteriskalign.html"/>
+          <item name="JavadocLinkFirstOccurrence"
+                href="checks/javadoc/javadoclinkfirstoccurrence.html"/>
+          <item name="JavadocLinkWellKnownApi"
+                href="checks/javadoc/javadoclinkwellknownapi.html"/>
           <item name="JavadocMethod" href="checks/javadoc/javadocmethod.html"/>
           <item name="JavadocMissingLeadingAsterisk"
                 href="checks/javadoc/javadocmissingleadingasterisk.html"/>
           <item name="JavadocMissingWhitespaceAfterAsterisk"
                 href="checks/javadoc/javadocmissingwhitespaceafterasterisk.html"/>
+          <item name="JavadocNoErrorInThrowsTag"
+                href="checks/javadoc/javadocnoerrorinthrowstag.html"/>
           <item name="JavadocPackage" href="checks/javadoc/javadocpackage.html"/>
           <item name="JavadocParagraph" href="checks/javadoc/javadocparagraph.html"/>
+          <item name="JavadocParamOrder" href="checks/javadoc/javadocparamorder.html"/>
           <item name="JavadocRegexp" href="checks/javadoc/javadocregexp.html"/>
           <item name="JavadocTagContinuationIndentation"
                 href="checks/javadoc/javadoctagcontinuationindentation.html"/>
+          <item name="JavadocThrowsOrder" href="checks/javadoc/javadocthrowsorder.html"/>
           <item name="JavadocType" href="checks/javadoc/javadoctype.html"/>
           <item name="JavadocVariable" href="checks/javadoc/javadocvariable.html"/>
           <item name="MissingJavadocMethod" href="checks/javadoc/missingjavadocmethod.html"/>
@@ -250,6 +274,10 @@
           <item name="MissingJavadocType" href="checks/javadoc/missingjavadoctype.html"/>
           <item name="NonEmptyAtclauseDescription"
                 href="checks/javadoc/nonemptyatclausedescription.html"/>
+          <item name="PreferCodeOrSnippetJavadocInlineTag"
+                href="checks/javadoc/prefercodeorsnippetjavadocinlinetag.html"/>
+          <item name="PreferLiteralJavadocInlineTag"
+                href="checks/javadoc/preferliteraljavadocinlinetag.html"/>
           <item name="RequireEmptyLineBeforeBlockTagGroup"
                 href="checks/javadoc/requireemptylinebeforeblocktaggroup.html"/>
           <item name="SingleLineJavadoc" href="checks/javadoc/singlelinejavadoc.html"/>
@@ -300,6 +328,10 @@
                 href="checks/modifier/interfacememberimpliedmodifier.html"/>
           <item name="ModifierOrder" href="checks/modifier/modifierorder.html"/>
           <item name="RedundantModifier" href="checks/modifier/redundantmodifier.html"/>
+        </item>
+
+        <item name="Modules" href="checks/modules/index.html" collapse="true">
+          <item name="ModuleDirectiveOrder" href="checks/modules/moduledirectiveorder.html"/>
         </item>
 
         <item name="Naming Conventions" href="checks/naming/index.html" collapse="true">
@@ -398,24 +430,24 @@
               href="filefilters/beforeexecutionexclusionfilefilter.html"/>
       </item>
 
-      <item name="Style Configurations" href="style_configs.html">
-        <item name="Google's Style" href="google_style.html"/>
-        <item name="OpenJDK's Style" href="openjdk_style.html"/>
-        <item name="Sun's Style" href="sun_style.html"/>
-        <item name="Documentation Comments Style" href="doc_comments_style.html"/>
+      <item name="Style Configurations" href="style-configs.html">
+        <item name="Google's Style" href="google-style.html"/>
+        <item name="OpenJDK's Style" href="openjdk-style.html"/>
+        <item name="Sun's Style" href="sun-style.html"/>
+        <item name="Documentation Comments Style" href="doc-comments-style.html"/>
       </item>
     </menu>
 
     <menu name="Developers">
       <item name="Extending Checkstyle" href="extending.html">
-        <item name="Writing Checks" href="writingchecks.html"/>
-        <item name="Writing Javadoc Checks" href="writingjavadocchecks.html"/>
-        <item name="Writing Filters" href="writingfilters.html"/>
-        <item name="Writing File Filters" href="writingfilefilters.html"/>
-        <item name="Writing Listeners" href="writinglisteners.html"/>
+        <item name="Writing Checks" href="writing-checks.html"/>
+        <item name="Writing Javadoc Checks" href="writing-javadoc-checks.html"/>
+        <item name="Writing Filters" href="writing-filters.html"/>
+        <item name="Writing File Filters" href="writing-filefilters.html"/>
+        <item name="Writing Listeners" href="writing-listeners.html"/>
       </item>
       <item name="Contributing" href="contributing.html"/>
-      <item name="Beginning Development" href="beginning_development.html">
+      <item name="Beginning Development" href="beginning-development.html">
         <item name="Eclipse IDE" href="eclipse.html"/>
         <item name="NetBeans IDE" href="netbeans.html"/>
         <item name="IntelliJ IDE" href="idea.html"/>

@@ -21,8 +21,8 @@
             <label for="toc-sub-Examples" class="toc-sub-toggle"><a href="#FileLength_Examples">Examples</a><span class="toc-sub-arrow"/></label>
             <ul class="toc-sublist">
               <li><a href="#Example1-config" class="toc-sublink">Accept files with up to 2000 lines</a></li>
-              <li><a href="#Example2-config" class="toc-sublink">max=5</a></li>
-              <li><a href="#Example3-config" class="toc-sublink">max=5</a></li>
+              <li><a href="#Example2-config" class="toc-sublink">Accept files with up to 5 lines</a></li>
+              <li><a href="#Example3-config" class="toc-sublink">Accept files with up to 5 lines and with txt extension only</a></li>
             </ul>
           </li>
           <li><a href="#FileLength_Example_of_Usage">Example of Usage</a></li>
@@ -57,14 +57,14 @@
             <tr>
               <td><a id="fileExtensions"/><a href="#fileExtensions">fileExtensions</a></td>
               <td>Specify the file extensions of the files to process.</td>
-              <td><a href="../../property_types.html#String.5B.5D">String[]</a></td>
+              <td><a href="../../property-types.html#String.5B.5D">String[]</a></td>
               <td><code>all files</code></td>
               <td>3.2</td>
             </tr>
             <tr>
               <td><a id="max"/><a href="#max">max</a></td>
               <td>Specify the maximum number of lines allowed.</td>
-              <td><a href="../../property_types.html#int">int</a></td>
+              <td><a href="../../property-types.html#int">int</a></td>
               <td><code>2000</code></td>
               <td>3.2</td>
             </tr>

@@ -6,11 +6,11 @@
 
 <suppressions>
   <!-- don't validate generated files -->
-  <suppress id="lineLength" files="releasenotes.xml"/>
-  <suppress id="lineLengthXml" files="releasenotes.xml"/>
-  <suppress id="lineLengthXml" files="releasenotes_old_8\-0_8\-34\.xml"/>
-  <suppress id="lineLengthXml" files="releasenotes_old_6\-0_7\-8\.xml"/>
-  <suppress id="lineLengthXml" files="releasenotes_old_1\-0_5\-9\.xml"/>
+  <suppress id="lineLength" files="release-notes.xml"/>
+  <suppress id="lineLengthXml" files="release-notes.xml"/>
+  <suppress id="lineLengthXml" files="release-notes-old-8-0-8-34.xml"/>
+  <suppress id="lineLengthXml" files="release-notes-old-6-0-7-8.xml"/>
+  <suppress id="lineLengthXml" files="release-notes-old-1-0-5-9.xml"/>
   <suppress id="lineLengthXml" files="/meta/"/>
 
   <suppress checks="FileLength"
@@ -72,8 +72,6 @@
   <suppress checks="RedundantModifier" files="/RequireThisCheck\.java$"/>
   <!-- Apart from complex logic, there is a nested class which contains many methods.  -->
   <suppress checks="MethodCount" files="/UnusedLocalVariableCheck.java"/>
-  <!-- Utility class is combination of a lot of different methods .  -->
-  <suppress checks="MethodCount" files="/SiteUtil.java"/>
   <!-- parse method needs catching Exceptions to print context of execution -->
   <suppress checks="IllegalCatch" files="/src/test/.*/InlineConfigParser\.java"/>
   <!-- exception maybe thrown while executing the static block -->
@@ -105,6 +103,7 @@
   <suppress checks="ClassDataAbstractionCoupling"
              files="XpathFileGeneratorAuditListenerTest\.java"/>
   <suppress checks="ClassFanOutComplexity" files="/Main\.java"/>
+  <suppress checks="ClassFanOutComplexity" files="MainTest\.java"/>
   <suppress checks="ClassFanOutComplexity" files="CheckerTest\.java"/>
   <suppress checks="ClassFanOutComplexity" files="Checker\.java"/>
   <suppress checks="ClassFanOutComplexity" files="AbstractAutomaticBean\.java"/>
@@ -120,19 +119,20 @@
   <!-- HandlerFactory crosses allowed limit for executable statements -->
   <suppress checks="ExecutableStatementCount" files="HandlerFactory\.java"/>
 
-  <suppress id="noSourceforgeNetLinks" files="/releasenotes.xml"/>
-  <suppress id="noSourceforgeNetLinks" files="/releasenotes_old_8\-0_8\-34\.xml"/>
+  <suppress id="noSourceforgeNetLinks" files="/release-notes.xml"/>
+  <suppress id="noSourceforgeNetLinks" files="/release-notes-old-8-0-8-34.xml"/>
   <suppress id="noSourceforgeIoLinks" files="/index.xml.vm"/>
 
   <!-- usage of div class="wrap-content" render even indented content properly -->
   <suppress id="noIndentationConfigExamples"
-            files="/src/site/xdoc/writingchecks.xml"/>
+            files="/src/site/xdoc/writing-checks.xml"/>
   <suppress id="noIndentationConfigExamples"
-    files="/src/site/xdoc/beginning_development.xml"/>
+    files="/src/site/xdoc/beginning-development.xml"/>
 
   <!-- Examples are not intended to be formatted -->
   <suppress id="noConsecutiveLines" files="/emptylineseparator.xml"/>
   <suppress id="noConsecutiveLines" files="/javadocparagraph.xml"/>
+  <suppress id="noConsecutiveLines" files="/moduledirectiveorder.xml"/>
   <suppress id="noConsecutiveLines" files="/parenpad.xml"/>
   <suppress id="noConsecutiveLines" files="/singlespaceseparator.xml"/>
   <suppress id="noConsecutiveLines" files="/typebodypadding.xml"/>
@@ -172,10 +172,12 @@
             files="/src/main/java/com/puppycrawl/tools/checkstyle/XpathFileGeneratorAstFilter.java"/>
 
   <!-- All xdoc checks/filters files are generated from templates and have escaped characters that
-       make the lines long. We still validate index.xml and template files.
-       until https://github.com/checkstyle/checkstyle/issues/13426 -->
+       make the lines long. We still validate index.xml and template files. -->
   <suppress id="lineLengthXml"
             files="/src/site/xdoc/(checks|(file)?filters)/(?!.*index\.xml)(?!.*\.xml\.template).+\.xml"/>
+  <!-- getting-started.xml.vm and index.xml.vm have long lines for code examples and links -->
+  <suppress id="lineLengthXml" files="/src/site/xdoc/getting-started\.xml\.vm"/>
+  <suppress id="lineLengthXml" files="/src/site/xdoc/index\.xml\.vm"/>
 
   <!-- The file is generated -->
   <suppress checks="FileTabCharacter"
@@ -196,4 +198,13 @@
   <!-- MissingCtor only matters for production code (src/main/java) which generates Javadoc -->
   <suppress checks="MissingCtor" files=".*/src/(test|it|xdocs-examples)/.*\.java"/>
 
+  <!-- until https://github.com/checkstyle/checkstyle/issues/21288 -->
+  <suppress checks="PreferCodeOrSnippetJavadocInlineTag"
+            files=".*\.java"
+            message="Use snippet inline tag instead of .* tag\."/>
+
+  <!-- Using {@code @code} with an escaped slash renders the entity text in Javadocs. -->
+  <suppress checks="PreferCodeOrSnippetJavadocInlineTag"
+            files="JavadocEndCommentDelimiterCheck.java"
+            message="Use code or snippet inline tags instead of 'code' tag\."/>
 </suppressions>

@@ -20,14 +20,14 @@
             <input type="checkbox" id="toc-sub-Examples" class="toc-sub-toggle-checkbox" checked="checked"/>
             <label for="toc-sub-Examples" class="toc-sub-toggle"><a href="#InterfaceMemberImpliedModifier_Examples">Examples</a><span class="toc-sub-arrow"/></label>
             <ul class="toc-sublist">
-              <li><a href="#Example1-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example2-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example3-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example4-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example5-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example6-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example7-config" class="toc-sublink">Configuration</a></li>
-              <li><a href="#Example8-config" class="toc-sublink">Configuration</a></li>
+              <li><a href="#Example1-config" class="toc-sublink">So that it checks that all implicit modifiers on methods, fields and nested types are explicitly specified in interfaces.</a></li>
+              <li><a href="#Example2-config" class="toc-sublink">This example checks that all implicit modifiers on methods and fields are explicitly specified, but nested types do not need to be.</a></li>
+              <li><a href="#Example3-config" class="toc-sublink">This example checks that all implicit modifiers on methods and nested types are explicitly specified, but fields do not need to be.</a></li>
+              <li><a href="#Example4-config" class="toc-sublink">This example checks that all implicit modifiers on fields and nested types are explicitly specified, but methods do not need to be.</a></li>
+              <li><a href="#Example5-config" class="toc-sublink">This example checks that all implicit modifiers on methods, fields and nested types are explicitly specified, but the <code>public</code> modifier on nested types does not need to be.</a></li>
+              <li><a href="#Example6-config" class="toc-sublink">This example checks that all implicit modifiers on methods, fields and nested types are explicitly specified, but the <code>static</code> modifier on nested types does not need to be.</a></li>
+              <li><a href="#Example7-config" class="toc-sublink">This example checks that all implicit modifiers on methods, fields and nested types are explicitly specified, but the <code>public</code> modifier on fields does not need to be.</a></li>
+              <li><a href="#Example8-config" class="toc-sublink">This example checks that all implicit modifiers on methods, fields and nested types are explicitly specified, but the <code>static</code> modifier on fields does not need to be.</a></li>
             </ul>
           </li>
           <li><a href="#InterfaceMemberImpliedModifier_Example_of_Usage">Example of Usage</a></li>
@@ -76,7 +76,7 @@
           enforce that the <code>public</code> and <code>static</code> modifiers are explicitly coded and not
           implicitly added by the compiler.
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 public interface AddressFactory {
   // check enforces code contains "public static final"
   public static final String UNKNOWN = "Unknown";
@@ -89,7 +89,7 @@ public interface AddressFactory {
   // check enforces code contains "public abstract"
   public abstract Address createAddress(String addressLine, String city);
 
-  List&lt;Address&gt; findAddresses(String city);  // violation
+  List&amp;lt;Address&amp;gt; findAddresses(String city);  // violation
 
   // check enforces default methods are explicitly declared "public"
   public default Address createAddress(String city) {
@@ -126,49 +126,49 @@ public interface AddressFactory {
             <tr>
               <td><a id="violateImpliedAbstractMethod"/><a href="#violateImpliedAbstractMethod">violateImpliedAbstractMethod</a></td>
               <td>Control whether to enforce that <code>abstract</code> is explicitly coded on interface methods.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedFinalField"/><a href="#violateImpliedFinalField">violateImpliedFinalField</a></td>
               <td>Control whether to enforce that <code>final</code> is explicitly coded on interface fields.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedPublicField"/><a href="#violateImpliedPublicField">violateImpliedPublicField</a></td>
               <td>Control whether to enforce that <code>public</code> is explicitly coded on interface fields.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedPublicMethod"/><a href="#violateImpliedPublicMethod">violateImpliedPublicMethod</a></td>
               <td>Control whether to enforce that <code>public</code> is explicitly coded on interface methods.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedPublicNested"/><a href="#violateImpliedPublicNested">violateImpliedPublicNested</a></td>
               <td>Control whether to enforce that <code>public</code> is explicitly coded on interface nested types.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedStaticField"/><a href="#violateImpliedStaticField">violateImpliedStaticField</a></td>
               <td>Control whether to enforce that <code>static</code> is explicitly coded on interface fields.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>
             <tr>
               <td><a id="violateImpliedStaticNested"/><a href="#violateImpliedStaticNested">violateImpliedStaticNested</a></td>
               <td>Control whether to enforce that <code>static</code> is explicitly coded on interface nested types.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>true</code></td>
               <td>8.12</td>
             </tr>

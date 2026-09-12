@@ -64,6 +64,7 @@ public class OpenjdkAnnotationLocationCheckTest extends AbstractModuleTestSuppor
             TokenTypes.ANNOTATION_FIELD_DEF,
             TokenTypes.RECORD_DEF,
             TokenTypes.COMPACT_CTOR_DEF,
+            TokenTypes.MODULE_DEF,
         };
         assertWithMessage("Default acceptable tokens are invalid")
                 .that(actual)
@@ -96,6 +97,8 @@ public class OpenjdkAnnotationLocationCheckTest extends AbstractModuleTestSuppor
             "65:21: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "e"),
             "69:21: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
                     "methodNotSingleLineBad"),
+            "84:25: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "multilineLocalVariable"),
         };
 
         verifyWithInlineConfigParser(
@@ -121,7 +124,7 @@ public class OpenjdkAnnotationLocationCheckTest extends AbstractModuleTestSuppor
         final String[] expected = {
             "20:17: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "method"),
             "27:5: " + getCheckMessage(MSG_KEY_ANNOTATION_ALONE_OR_SAME, "badMethod"),
-            "36:29: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "Temp"),
+            "42:21: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "temp1"),
         };
 
         verifyWithInlineConfigParser(
@@ -133,7 +136,8 @@ public class OpenjdkAnnotationLocationCheckTest extends AbstractModuleTestSuppor
         final String[] expected = {
             "22:29: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "badField6"),
             "32:13: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "badField7"),
-            "53:1: " + getCheckMessage(MSG_KEY_ANNOTATION_ALONE_OR_SAME, "helperMethodThree"),
+            "37:17: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "local1"),
+            "54:1: " + getCheckMessage(MSG_KEY_ANNOTATION_ALONE_OR_SAME, "helperMethodThree"),
         };
 
         verifyWithInlineConfigParser(
@@ -153,12 +157,69 @@ public class OpenjdkAnnotationLocationCheckTest extends AbstractModuleTestSuppor
     }
 
     @Test
+    public void testSingleLineTypesAndConstructor() throws Exception {
+        final String[] expected = {
+            "20:46: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "MultilineC"),
+            "27:48: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "MultilineRat"),
+            "39:38: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "GenericMethods2"),
+            "46:34: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "MultilineInterface"),
+            "52:34: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "MultilineEnum"),
+            "59:38: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "VALUE_WITH_BODY"),
+            "66:34: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "MultilineRecord"),
+            "75:38: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE,
+                    "MultilineCompactConstructor"),
+        };
+
+        verifyWithInlineConfigParser(
+                getPath("InputOpenjdkAnnotationLocation6.java"), expected);
+    }
+
+    @Test
     public void testPackage() throws Exception {
         final String[] expected = {
             "10:84: " + getCheckMessage(MSG_KEY_ANNOTATION_ALONE_OR_SAME, "inputs"),
         };
         verifyWithInlineConfigParser(
                 getPath("inputs/package-info.java"), expected);
+    }
+
+    @Test
+    public void testModuleAnnotationOnTargetLine() throws Exception {
+        final String[] expected = {
+            "12:13: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "app"),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath(
+                        "module-info/annotation-on-target-line/module-info.java"), expected);
+    }
+
+    @Test
+    public void testModuleMixedAnnotations() throws Exception {
+        final String[] expected = {
+            "10:10: " + getCheckMessage(MSG_KEY_ANNOTATION_ON_TARGET_LINE, "app2"),
+            "10:10: " + getCheckMessage(MSG_KEY_ANNOTATION_ALONE_OR_SAME, "app2"),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath("module-info/mixed-annotations/module-info.java"), expected);
+    }
+
+    @Test
+    public void testOpenModule() throws Exception {
+        final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
+        verifyWithInlineConfigParser(
+                getNonCompilablePath("module-info/open/module-info.java"), expected);
+    }
+
+    @Test
+    public void testSingleLinePackage() throws Exception {
+        final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
+        verifyWithInlineConfigParser(
+                getPath("inputs/singleline/package-info.java"), expected);
     }
 
 }

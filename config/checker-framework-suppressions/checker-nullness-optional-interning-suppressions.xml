@@ -337,28 +337,28 @@
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/JavaAstVisitor.java</fileName>
     <specifier>not.interned</specifier>
     <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>else if (ctx.children.get(i) == expression) {</lineContent>
+    <lineContent>else if (ctx.children.get(index) == expression) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/JavaAstVisitor.java</fileName>
     <specifier>not.interned</specifier>
     <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>else if (ctx.children.get(i) == expression) {</lineContent>
+    <lineContent>else if (ctx.children.get(index) == expression) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/JavaAstVisitor.java</fileName>
     <specifier>not.interned</specifier>
     <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>if (ctx.children.get(i) == rbrack) {</lineContent>
+    <lineContent>if (ctx.children.get(index) == rbrack) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/JavaAstVisitor.java</fileName>
     <specifier>not.interned</specifier>
     <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>if (ctx.children.get(i) == rbrack) {</lineContent>
+    <lineContent>if (ctx.children.get(index) == rbrack) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -693,8 +693,8 @@
     <lineContent>.collect(Collectors.groupingBy(Class::getSimpleName,</lineContent>
     <details>
       unsatisfiable constraint: @Initialized @Nullable String &lt;: @Initialized @NonNull String
-      @Initialized @Nullable String &lt;: use of U from Collectors.mapping(Class::getCanonicalName, Collectors.toCollection(HashSet::new))
-      From complementary bound.: @Initialized @Nullable String -&gt; use of U from Collectors.mapping(Class::getCanonicalName, Collectors.toCollection(HashSet::new))
+      From complementary bound: @Initialized @Nullable String &lt;: use of U from Collectors.mapping(Class::getCanonicalName, Collectors.toCollection(HashSet::new))
+      @Initialized @Nullable String -&gt; use of U from Collectors.mapping(Class::getCanonicalName, Collectors.toCollection(HashSet::new))
       Class::getCanonicalName -&gt; inference type: java.util.function.Function&lt;? super java.lang.Class&lt;?&gt;,? extends U&gt;
       From: Argument constraint
     </details>
@@ -1489,42 +1489,6 @@
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/annotation/AnnotationLocationCheck.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter modifierNode of AnnotationLocationCheck.checkAnnotations.</message>
-    <lineContent>checkAnnotations(node, getExpectedAnnotationIndentation(node));</lineContent>
-    <details>
-      found   : @Initialized @Nullable DetailAST
-      required: @Initialized @NonNull DetailAST
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/annotation/AnnotationLocationCheck.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter node of AnnotationLocationCheck.getExpectedAnnotationIndentation.</message>
-    <lineContent>checkAnnotations(node, getExpectedAnnotationIndentation(node));</lineContent>
-    <details>
-      found   : @Initialized @Nullable DetailAST
-      required: @Initialized @NonNull DetailAST
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/annotation/AnnotationLocationCheck.java</fileName>
-    <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference annotation.findFirstToken(TokenTypes.DOT)</message>
-    <lineContent>identNode = annotation.findFirstToken(TokenTypes.DOT).findFirstToken(TokenTypes.IDENT);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/annotation/AnnotationLocationCheck.java</fileName>
-    <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference identNode</message>
-    <lineContent>return identNode.getText();</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/annotation/AnnotationOnSameLineCheck.java</fileName>
     <specifier>dereference.of.nullable</specifier>
     <message>dereference of possibly-null reference annotation.findFirstToken(TokenTypes.DOT)</message>
@@ -2163,6 +2127,17 @@
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/ExpressionOverBlockLambdaCheck.java</fileName>
+    <specifier>return</specifier>
+    <message>incompatible types in return.</message>
+    <lineContent>return result;</lineContent>
+    <details>
+      type of expression: @Initialized @Nullable DetailAST
+      method return type: @Initialized @NonNull DetailAST
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/FinalLocalVariableCheck.java</fileName>
     <specifier>dereference.of.nullable</specifier>
     <message>dereference of possibly-null reference ast.findFirstToken(TokenTypes.MODIFIERS)</message>
@@ -2671,6 +2646,27 @@
       found   : null (NullType)
       required: @Initialized @NonNull Pattern
     </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/MultipleStringLiteralsCheck.java</fileName>
+    <specifier>flowexpr.parse.index.too.big</specifier>
+    <message>the method has no parameter #1 (total 0 parameters)</message>
+    <lineContent>ignoreOccurrenceContext.clear();</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/MultipleStringLiteralsCheck.java</fileName>
+    <specifier>flowexpr.parse.index.too.big</specifier>
+    <message>the method has no parameter #1 (total 0 parameters)</message>
+    <lineContent>ignoreOccurrenceContext.clear();</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/MultipleStringLiteralsCheck.java</fileName>
+    <specifier>flowexpr.parse.index.too.big</specifier>
+    <message>the method has no parameter #1 (total 0 parameters)</message>
+    <lineContent>ignoreOccurrenceContext.clear();</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -3621,6 +3617,136 @@
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter arg0 of Map.put.</message>
+    <lineContent>privateFieldsByType.put(enclosingTypeNames.peek(), classFields);</lineContent>
+    <details>
+      found   : @Initialized @Nullable String
+      required: @Initialized @NonNull String
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter arg0 of Set.add.</message>
+    <lineContent>usedFieldIdents.add(ident);</lineContent>
+    <details>
+      found   : @Initialized @Nullable DetailAST
+      required: @Initialized @NonNull DetailAST
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter modifiers of UnusedPrivateFieldCheck.isPrivate.</message>
+    <lineContent>final boolean isPrivateField = isPrivate(modifiers);</lineContent>
+    <details>
+      found   : @Initialized @Nullable DetailAST
+      required: @Initialized @NonNull DetailAST
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter qualifierTypeName of UnusedPrivateFieldCheck.recordUsage.</message>
+    <lineContent>recordUsage(name, null, false);</lineContent>
+    <details>
+      found   : null (NullType)
+      required: @Initialized @NonNull String
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter qualifierTypeName of UnusedPrivateFieldCheck.recordUsage.</message>
+    <lineContent>recordUsage(name, null, true);</lineContent>
+    <details>
+      found   : null (NullType)
+      required: @Initialized @NonNull String
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference ast.findFirstToken(TokenTypes.IDENT)</message>
+    <lineContent>ast.findFirstToken(TokenTypes.IDENT).getText();</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference ident</message>
+    <lineContent>ignoredFieldPattern.matcher(ident.getText()).matches();</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference privateFields.peek()</message>
+    <lineContent>privateFields.peek().put(ident.getText(), ident);</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference scopeStack.peek()</message>
+    <lineContent>scopeStack.peek().put(ident.getText(), resolveDeclaredTypeName(ast));</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference scopeStack.peek()</message>
+    <lineContent>scopeStack.peek().put(localName, resolveDeclaredTypeName(ast));</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference typeAst</message>
+    <lineContent>final DetailAST identChild = typeAst.findFirstToken(TokenTypes.IDENT);</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>return</specifier>
+    <message>incompatible types in return.</message>
+    <lineContent>return result;</lineContent>
+    <details>
+      type of expression: @Initialized @Nullable DetailAST
+      method return type: @Initialized @NonNull DetailAST
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>return</specifier>
+    <message>incompatible types in return.</message>
+    <lineContent>return result;</lineContent>
+    <details>
+      type of expression: @Initialized @Nullable String
+      method return type: @Initialized @NonNull String
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedPrivateFieldCheck.java</fileName>
+    <specifier>return</specifier>
+    <message>incompatible types in return.</message>
+    <lineContent>return result;</lineContent>
+    <details>
+      type of expression: @Initialized @Nullable String
+      method return type: @Initialized @NonNull String
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/UnusedTryResourceShouldBeUnnamedCheck.java</fileName>
     <specifier>argument</specifier>
     <message>incompatible argument for parameter root of TokenUtil.forEachChild.</message>
@@ -3672,6 +3798,17 @@
 
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/VariableDeclarationUsageDistanceCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter parent of VariableDeclarationUsageDistanceCheck.isChild.</message>
+    <lineContent>if (isChild(catchOrFinallyBlock, variable)) {</lineContent>
+    <details>
+      found   : @Initialized @Nullable DetailAST
+      required: @Initialized @NonNull DetailAST
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/VariableDeclarationUsageDistanceCheck.java</fileName>
     <specifier>dereference.of.nullable</specifier>
     <message>dereference of possibly-null reference ast</message>
     <lineContent>while (ast.getType() != TokenTypes.RPAREN) {</lineContent>
@@ -3687,8 +3824,8 @@
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/coding/VariableDeclarationUsageDistanceCheck.java</fileName>
     <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference currentSiblingAst.findFirstToken(TokenTypes.IDENT)</message>
-    <lineContent>currentSiblingAst.findFirstToken(TokenTypes.IDENT).getText();</lineContent>
+    <message>dereference of possibly-null reference currentAst.findFirstToken(TokenTypes.IDENT)</message>
+    <lineContent>currentAst.findFirstToken(TokenTypes.IDENT).getText();</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -3763,8 +3900,8 @@
     <lineContent>return new SimpleEntry&lt;&gt;(variableUsageAst, dist);</lineContent>
     <details>
       unsatisfiable constraint: @Initialized @Nullable DetailAST &lt;: @Initialized @NonNull DetailAST
-      use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) = @Initialized @NonNull DetailAST
-      From complementary bound.: use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) &lt;= @Initialized @NonNull DetailAST
+      From complementary bound: use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) = @Initialized @NonNull DetailAST
+      use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) &lt;= @Initialized @NonNull DetailAST
       inference type: java.util.AbstractMap.SimpleEntry&lt;K,V&gt; &lt;: @Initialized @NonNull Entry&lt;@Initialized @NonNull DetailAST, @Initialized @NonNull Integer&gt;
       inference type: java.util.AbstractMap.SimpleEntry&lt;K,V&gt; -&gt; @Initialized @NonNull Entry&lt;@Initialized @NonNull DetailAST, @Initialized @NonNull Integer&gt;
       From: Constraint between method call type and target type for method call:new SimpleEntry&lt;&gt;(variableUsageAst, dist)
@@ -3778,8 +3915,8 @@
     <lineContent>return new SimpleEntry&lt;&gt;(variableUsageAst, dist);</lineContent>
     <details>
       unsatisfiable constraint: @Initialized @Nullable DetailAST &lt;: @Initialized @NonNull DetailAST
-      use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) = @Initialized @NonNull DetailAST
-      From complementary bound.: use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) &lt;= @Initialized @NonNull DetailAST
+      From complementary bound: use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) = @Initialized @NonNull DetailAST
+      use of K from new SimpleEntry&lt;&gt;(variableUsageAst, dist) &lt;= @Initialized @NonNull DetailAST
       inference type: java.util.AbstractMap.SimpleEntry&lt;K,V&gt; &lt;: @Initialized @NonNull Entry&lt;@Initialized @NonNull DetailAST, @Initialized @NonNull Integer&gt;
       inference type: java.util.AbstractMap.SimpleEntry&lt;K,V&gt; -&gt; @Initialized @NonNull Entry&lt;@Initialized @NonNull DetailAST, @Initialized @NonNull Integer&gt;
       From: Constraint between method call type and target type for method call:new SimpleEntry&lt;&gt;(variableUsageAst, dist)
@@ -5781,6 +5918,34 @@
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/InappropriateJavadocBlockTagsOnFieldCheck.java</fileName>
+    <specifier>initialization.fields.uninitialized</specifier>
+    <message>the constructor does not initialize fields: currentAst</message>
+    <lineContent>public InappropriateJavadocBlockTagsOnFieldCheck() {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/InappropriateJavadocBlockTagsOnPackageCheck.java</fileName>
+    <specifier>initialization.fields.uninitialized</specifier>
+    <message>the constructor does not initialize fields: currentAst</message>
+    <lineContent>public InappropriateJavadocBlockTagsOnPackageCheck() {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/InappropriateJavadocBlockTagsOnTypeCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference currentAst.findFirstToken(TokenTypes.IDENT)</message>
+    <lineContent>final String typeName = currentAst.findFirstToken(TokenTypes.IDENT).getText();</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/InappropriateJavadocBlockTagsOnTypeCheck.java</fileName>
+    <specifier>initialization.fields.uninitialized</specifier>
+    <message>the constructor does not initialize fields: currentAst</message>
+    <lineContent>public InappropriateJavadocBlockTagsOnTypeCheck() {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocBlockTagLocationCheck.java</fileName>
     <specifier>argument</specifier>
     <message>incompatible argument for parameter arg0 of Set.contains.</message>
@@ -5814,6 +5979,13 @@
     <specifier>initialization.fields.uninitialized</specifier>
     <message>the constructor does not initialize fields: fileLines</message>
     <lineContent>public JavadocLeadingAsteriskAlignCheck() {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocLinkFirstOccurrenceCheck.java</fileName>
+    <specifier>initialization.fields.uninitialized</specifier>
+    <message>the constructor does not initialize fields: importedNames, starImports, declaredTypeNames</message>
+    <lineContent>public JavadocLinkFirstOccurrenceCheck() {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -6054,6 +6226,28 @@
     <specifier>initialization.fields.uninitialized</specifier>
     <message>the constructor does not initialize fields: excludeScope</message>
     <lineContent>public MissingJavadocTypeCheck() {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/PreferCodeOrSnippetJavadocInlineTagCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter args of AbstractJavadocCheck.log.</message>
+    <lineContent>log(node, MSG_KEY_MULTI_LINE, getHtmlTagName(node));</lineContent>
+    <details>
+      found   : @Initialized @Nullable String
+      required: @Initialized @NonNull Object
+    </details>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/PreferCodeOrSnippetJavadocInlineTagCheck.java</fileName>
+    <specifier>argument</specifier>
+    <message>incompatible argument for parameter args of AbstractJavadocCheck.log.</message>
+    <lineContent>log(node, MSG_KEY_SINGLE_LINE, getHtmlTagName(node));</lineContent>
+    <details>
+      found   : @Initialized @Nullable String
+      required: @Initialized @NonNull Object
+    </details>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -6377,6 +6571,13 @@
     <specifier>introduce.eliminate</specifier>
     <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
     <lineContent>.ifPresent(modifiers -&gt; {</lineContent>
+  </checkerFrameworkError>
+
+  <checkerFrameworkError unstable="false">
+    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/checks/modules/ModuleDirectiveOrderCheck.java</fileName>
+    <specifier>dereference.of.nullable</specifier>
+    <message>dereference of possibly-null reference directiveBlock</message>
+    <lineContent>for (DetailAST child = directiveBlock.getFirstChild(); child != null;</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -7906,31 +8107,6 @@
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/JavadocMetadataScraperUtil.java</fileName>
-    <specifier>not.interned</specifier>
-    <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>while (curNode != endNode &amp;&amp; toVisit == null) {</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/JavadocMetadataScraperUtil.java</fileName>
-    <specifier>not.interned</specifier>
-    <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>while (curNode != endNode &amp;&amp; toVisit == null) {</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/MetadataGeneratorUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return validationType;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/ModuleDetails.java</fileName>
     <specifier>initialization.fields.uninitialized</specifier>
     <message>the constructor does not initialize fields: name, fullQualifiedName, parent, description, moduleType</message>
@@ -7970,7 +8146,7 @@
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/XmlMetaReader.java</fileName>
     <specifier>argument</specifier>
     <message>incompatible argument for parameter element of XmlMetaReader.getAttributeValue.</message>
-    <lineContent>listContent.add(getAttributeValue((Element) nodeList.item(j), attribute));</lineContent>
+    <lineContent>listContent.add(getAttributeValue((Element) nodeList.item(index), attribute));</lineContent>
     <details>
       found   : @Initialized @Nullable Element
       required: @Initialized @NonNull Element
@@ -8002,15 +8178,15 @@
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/XmlMetaReader.java</fileName>
     <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference children.item(i)</message>
-    <lineContent>if (children.item(i).getParentNode().equals(element)) {</lineContent>
+    <message>dereference of possibly-null reference children.item(index)</message>
+    <lineContent>if (children.item(index).getParentNode().equals(element)) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
     <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/XmlMetaReader.java</fileName>
     <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference children.item(i).getParentNode()</message>
-    <lineContent>if (children.item(i).getParentNode().equals(element)) {</lineContent>
+    <message>dereference of possibly-null reference children.item(index).getParentNode()</message>
+    <lineContent>if (children.item(index).getParentNode().equals(element)) {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -8047,17 +8223,6 @@
     <message>incompatible types in return.</message>
     <lineContent>return result;</lineContent>
     <details>
-      type of expression: @Initialized @Nullable List&lt;@Initialized @NonNull String&gt;
-      method return type: @Initialized @NonNull List&lt;@Initialized @NonNull String&gt;
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/meta/XmlMetaReader.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
       type of expression: @Initialized @Nullable ModuleDetails
       method return type: @Initialized @NonNull ModuleDetails
     </details>
@@ -8072,119 +8237,6 @@
       type of expression: @Initialized @Nullable String
       method return type: @Initialized @NonNull String
     </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/AllCheckSummaries.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter input of Pattern.matcher.</message>
-    <lineContent>final String cleanedUrl = SPACE_PATTERN.matcher(originalUrl).replaceAll(&quot;&quot;);</lineContent>
-    <details>
-      found   : @Initialized @Nullable String
-      required: @Initialized @NonNull CharSequence
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ClassAndPropertiesSettersJavadocScraper.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter javadoc of SiteUtil.getPropertyDescriptionForXdoc.</message>
-    <lineContent>setterJavadoc, moduleName);</lineContent>
-    <details>
-      found   : @Initialized @Nullable DetailNode
-      required: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ClassAndPropertiesSettersJavadocScraper.java</fileName>
-    <specifier>assignment</specifier>
-    <message>incompatible types in assignment.</message>
-    <lineContent>propsToProcess = setterNodes.keySet();</lineContent>
-    <details>
-      found   : Set&lt;@KeyFor(&quot;this.setterNodes&quot;) String&gt;
-      required: Set&lt;String&gt;
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ClassAndPropertiesSettersJavadocScraper.java</fileName>
-    <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference type</message>
-    <lineContent>final String name = type.getNextSibling().getText();</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ExampleMacro.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ModuleJavadocParsingUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return nodeBeforeJavadocTags;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable DetailNode
-      method return type: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ModuleJavadocParsingUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return notesStartNode;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable DetailNode
-      method return type: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ModuleJavadocParsingUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable DetailNode
-      method return type: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/PropertiesMacro.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter justification of XdocSink.tableRows.</message>
-    <lineContent>sink.tableRows(null, false);</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull int @Initialized @NonNull []
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/PropertiesMacro.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter obj of Objects.requireNonNull.</message>
-    <lineContent>.requireNonNull(propertiesDetails.get(propertyName));</lineContent>
-    <details>
-      found   : @Initialized @Nullable PropertyDetails
-      required: @Initialized @NonNull PropertyDetails
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/PropertyDetails.java</fileName>
-    <specifier>initialization.fields.uninitialized</specifier>
-    <message>the constructor does not initialize fields: buildName, buildDescription, buildType</message>
-    <lineContent>public Builder() {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">
@@ -8419,336 +8471,6 @@
       type of expression: @Initialized @Nullable SearchIndexEntry
       method return type: @Initialized @NonNull SearchIndexEntry
     </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter classLoader of PackageNamesLoader.getPackageNames.</message>
-    <lineContent>final Set&lt;String&gt; packageNames = PackageNamesLoader.getPackageNames(cl);</lineContent>
-    <details>
-      found   : @Initialized @Nullable ClassLoader
-      required: @Initialized @NonNull ClassLoader
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter instance of SiteUtil.processModule.</message>
-    <lineContent>processModule(superclassName, superclassPath, null, properties);</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull Object
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter javadoc of SiteUtil.getPropertyDescriptionForXdoc.</message>
-    <lineContent>final String description = getPropertyDescriptionForXdoc(property, null,</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter moduleClassLoader of Checker.setModuleClassLoader.</message>
-    <lineContent>checker.setModuleClassLoader(Checker.class.getClassLoader());</lineContent>
-    <details>
-      found   : @Initialized @Nullable ClassLoader
-      required: @Initialized @NonNull ClassLoader
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter propertyJavadoc of SiteUtil.getPropertySinceVersion.</message>
-    <lineContent>final String since = getPropertySinceVersion(moduleSince, null);</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference currentClass</message>
-    <lineContent>result = currentClass.getDeclaredField(propertyName);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>.orElse(null);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>.orElse(null);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>.orElseGet(fieldClass::getTypeName);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>result = Optional.ofNullable(fieldValue).orElse(NULL_STR);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>result = Optional.ofNullable(value).map(Object::toString).orElse(null);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>introduce.eliminate</specifier>
-    <message>It is bad style to create an Optional just to chain methods to get a non-optional value.</message>
-    <lineContent>sinceVersion = Optional.ofNullable(moduleSince).orElse(&quot;&quot;);</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>methodref.return</specifier>
-    <message>Incompatible return type</message>
-    <lineContent>.mapToInt(Integer.class::cast);</lineContent>
-    <details>
-      found   : @Initialized @Nullable Integer
-      required: @Initialized @NonNull int
-      Consequence: method in @Initialized @NonNull Class&lt;@Initialized @NonNull Integer&gt;
-      @Initialized @Nullable Integer cast(@Initialized @NonNull Class&lt;@Initialized @NonNull Integer&gt; this, @Initialized @Nullable Object p0)
-      is not a valid method reference for method in @Initialized @NonNull ToIntFunction&lt;capture extends @Initialized @Nullable Object&gt;
-      @Initialized @NonNull int applyAsInt(@Initialized @NonNull ToIntFunction&lt;capture extends @Initialized @Nullable Object&gt; this, capture extends @Initialized @Nullable Object p0)
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>not.interned</specifier>
-    <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>while (node != endNode &amp;&amp; toVisit == null) {</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>not.interned</specifier>
-    <message>attempting to use a non-@Interned comparison operand</message>
-    <lineContent>while (node != endNode &amp;&amp; toVisit == null) {</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable Class&lt;capture extends @Initialized @Nullable Object&gt;
-      method return type: @Initialized @NonNull Class&lt;? extends @Initialized @Nullable Object&gt;
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return javadocTagWithSince;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable DetailNode
-      method return type: @Initialized @NonNull DetailNode
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable Field
-      method return type: @Initialized @NonNull Field
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return fieldValue;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable Object
-      method return type: @Initialized @NonNull Object
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>.orElse(null);</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable Path
-      method return type: @Initialized @NonNull Path
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>return</specifier>
-    <message>incompatible types in return.</message>
-    <lineContent>return result;</lineContent>
-    <details>
-      type of expression: @Initialized @Nullable String
-      method return type: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>type.arguments.not.inferred</specifier>
-    <message>Could not infer type arguments for Stream.collect</message>
-    <lineContent>.collect(Collectors.toCollection(ArrayList&lt;String&gt;::new));</lineContent>
-    <details>
-      unsatisfiable constraint: @Initialized @PolyNull String &lt;: @Initialized @NonNull String
-      @Initialized @NonNull String = use of T from Collectors.toCollection(ArrayList&lt;String&gt;::new)
-      From complementary bound.: @Initialized @NonNull String &lt;= use of T from Collectors.toCollection(ArrayList&lt;String&gt;::new)
-      @Initialized @NonNull ArrayList&lt;@Initialized @NonNull String&gt; &lt;: inference type: java.util.Collection&lt;T&gt;
-      @Initialized @NonNull ArrayList&lt;@Initialized @NonNull String&gt; &lt;: use of C from Collectors.toCollection(ArrayList&lt;String&gt;::new)
-      From complementary bound.: @Initialized @NonNull ArrayList&lt;@Initialized @NonNull String&gt; -&gt; use of C from Collectors.toCollection(ArrayList&lt;String&gt;::new)
-      ArrayList&lt;String&gt;::new -&gt; inference type: java.util.function.Supplier&lt;C&gt;
-      From: Argument constraint
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/SiteUtil.java</fileName>
-    <specifier>type.arguments.not.inferred</specifier>
-    <message>Could not infer type arguments for Stream.map</message>
-    <lineContent>.map(Pattern.class::cast)</lineContent>
-    <details>
-      unsatisfiable constraint: capture extends @Initialized @Nullable Object &lt;: @Initialized @PolyNull Object
-      Pattern.class::cast -&gt; inference type: java.util.function.Function&lt;? super capture of ?,? extends R&gt;
-      From: Argument constraint
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/TocMacro.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter value of Optional.of.</message>
-    <lineContent>result = Optional.of(id);</lineContent>
-    <details>
-      found   : @Initialized @Nullable String
-      required: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/ViolationMessagesMacro.java</fileName>
-    <specifier>dereference.of.nullable</specifier>
-    <message>dereference of possibly-null reference clss.getPackage()</message>
-    <lineContent>+ clss.getPackage().getName().replace(&apos;.&apos;, &apos;/&apos;)</lineContent>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/XdocsTemplateParser.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter arg0 of XmlPullParser.getAttributeValue.</message>
-    <lineContent>.getAttributeValue(null, Attribute.NAME.toString());</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/XdocsTemplateParser.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter arg0 of XmlPullParser.getAttributeValue.</message>
-    <lineContent>.getAttributeValue(null, Attribute.VALUE.toString());</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/XdocsTemplateParser.java</fileName>
-    <specifier>argument</specifier>
-    <message>incompatible argument for parameter arg0 of XmlPullParser.getAttributeValue.</message>
-    <lineContent>macroName = parser.getAttributeValue(null, Attribute.NAME.toString());</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/XdocsTemplateParser.java</fileName>
-    <specifier>assignment</specifier>
-    <message>incompatible types in assignment.</message>
-    <lineContent>sourceContent = null;</lineContent>
-    <details>
-      found   : null (NullType)
-      required: @Initialized @NonNull String
-    </details>
-  </checkerFrameworkError>
-
-  <checkerFrameworkError unstable="false">
-    <fileName>src/main/java/com/puppycrawl/tools/checkstyle/site/XdocsTemplateParser.java</fileName>
-    <specifier>initialization.fields.uninitialized</specifier>
-    <message>the constructor does not initialize fields: sourceContent, macroName</message>
-    <lineContent>public XdocsTemplateParser() {</lineContent>
   </checkerFrameworkError>
 
   <checkerFrameworkError unstable="false">

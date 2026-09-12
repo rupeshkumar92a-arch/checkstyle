@@ -7,7 +7,7 @@
 <suppressions>
 
   <!-- don't validate generated files -->
-  <suppress id="lineLength" files="releasenotes.xml"/>
+  <suppress id="lineLength" files="release-notes.xml"/>
 
   <!-- full path is required for logic of script google-java-format.sh -->
   <suppress id="lineLength" files="compilable-input-paths.txt"/>
@@ -146,13 +146,16 @@
   <suppress id="lineLength" files="config/archunit-store.*"/>
 
   <!-- We will preserve formatting of archived release notes -->
-  <suppress id="lineLength" files="/releasenotes_old_8\-0_8\-34\.xml"/>
+  <suppress id="lineLength" files="/release-notes-old-8-0-8-34.xml"/>
 
   <!-- All xdoc checks/filters files are generated from templates and have escaped characters that
-       make the lines long. We still validate index.xml and template files.
-       until https://github.com/checkstyle/checkstyle/issues/13426 -->
+       make the lines long. We still validate index.xml and template files. -->
   <suppress id="lineLength"
             files="/src/site/xdoc/(checks|(file)?filters)/(?!.*index\.xml)(?!.*\.xml\.template).+\.xml"/>
+
+  <!-- Site documentation files with card layouts have long lines -->
+  <suppress id="lineLength" files="/src/site/xdoc/getting-started\.xml\.vm"/>
+  <suppress id="lineLength" files="/src/site/xdoc/index\.xml\.vm"/>
 
   <!-- apply check numberOfTestCasesInXpath only for files in suppressionxpathfilter directory -->
   <suppress id="numberOfTestCasesInXpath"
@@ -262,9 +265,11 @@
   <suppress id="propertiesMacroMustExist"
          files="src/site/xdoc/checks/coding/emptystatement.xml.template"/>
   <suppress id="propertiesMacroMustExist"
-         files="src/site/xdoc/checks/coding/equalshashcode.xml.template"/>
+          files="src/site/xdoc/checks/coding/equalshashcode.xml.template"/>
   <suppress id="propertiesMacroMustExist"
-         files="src/site/xdoc/checks/coding/innerassignment.xml.template"/>
+          files="src/site/xdoc/checks/coding/expressionoverblocklambda.xml.template"/>
+  <suppress id="propertiesMacroMustExist"
+          files="src/site/xdoc/checks/coding/innerassignment.xml.template"/>
   <suppress id="propertiesMacroMustExist"
          files="src/site/xdoc/checks/coding/missingctor.xml.template"/>
   <suppress id="propertiesMacroMustExist"
@@ -318,6 +323,10 @@
   <suppress id="propertiesMacroMustExist"
          files="src/site/xdoc/checks/imports/redundantimport.xml.template"/>
   <suppress id="propertiesMacroMustExist"
+         files="src[\\/]site[\\/]xdoc[\\/]checks[\\/]imports[\\/]unnecessaryfullyqualifiedtype.xml.template"/>
+  <suppress id="propertiesMacroMustExist"
+         files="src/site/xdoc/checks/javadoc/javadocendcommentdelimiter.xml.template"/>
+  <suppress id="propertiesMacroMustExist"
          files="src/site/xdoc/checks/javadoc/invalidjavadocposition.xml.template"/>
   <suppress id="propertiesMacroMustExist"
          files="src/site/xdoc/checks/javadoc/missingjavadocpackage.xml.template"/>
@@ -355,6 +364,8 @@
             files="src/site/xdoc/checks/misc/multilinecommentleadingasteriskpresence.xml.template"/>
   <suppress id="propertiesMacroMustExist"
             files="src/site/xdoc/checks/naming/googlemethodname.xml.template"/>
+  <suppress id="propertiesMacroMustExist"
+            files="src[\\/]site[\\/]xdoc[\\/]checks[\\/]coding[\\/]unusedprivatefield.xml.template"/>
 
   <!-- Index templates don't need since macro by design -->
   <suppress id="sinceMacroMustExist"
@@ -429,5 +440,14 @@
 
   <!-- If files names are wrapped then they through error at time of report generation -->
   <suppress id="lineLength" files="config/list-of-projects.yml"/>
+
+  <!-- files used for redirection to not break old links -->
+  <suppress id="siteXmlFileNaming"
+    files="src/site/xdoc/config_.*\.xml"/>
+  <suppress id="siteXmlFileNaming"
+    files="src/site/xdoc/.*_.*\.(xml|html)"/>
+  <!-- file name uses underscores instead of hyphens -->
+  <suppress id="siteXmlFileNaming"
+    files="src/site/resources/files/suppressions_none\.xml"/>
 
 </suppressions>

@@ -41,10 +41,10 @@ import com.puppycrawl.tools.checkstyle.utils.UnmodifiableCollectionUtil;
  */
 public class LocalizedMessage {
 
-    /** The locale to localise messages to. **/
+    /** The locale to localise messages to. */
     private static Locale messageLocale = Locale.getDefault();
 
-    /** Name of the resource bundle to get messages from. **/
+    /** Name of the resource bundle to get messages from. */
     private final String bundle;
 
     /** Class of the source for this message. */
@@ -52,7 +52,7 @@ public class LocalizedMessage {
 
     /**
      * Key for the message format.
-     **/
+     */
     private final String key;
 
     /**
@@ -152,7 +152,8 @@ public class LocalizedMessage {
 
         @Override
         public ResourceBundle newBundle(String baseName, Locale locale, String format,
-                 ClassLoader loader, boolean reload) throws IOException {
+                ClassLoader loader, boolean reload)
+                        throws IOException {
             // The below is a copy of the default implementation.
             final String bundleName = toBundleName(baseName, locale);
             final String resourceName = toResourceName(bundleName, "properties");

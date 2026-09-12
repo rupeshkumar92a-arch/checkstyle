@@ -21,7 +21,7 @@
             <label for="toc-sub-Examples" class="toc-sub-toggle"><a href="#OuterTypeNumber_Examples">Examples</a><span class="toc-sub-arrow"/></label>
             <ul class="toc-sublist">
               <li><a href="#Example1-config" class="toc-sublink">Accept 1 outer type per file</a></li>
-              <li><a href="#Example2-config" class="toc-sublink">max=3</a></li>
+              <li><a href="#Example2-config" class="toc-sublink">Accept 2 outer types per file</a></li>
             </ul>
           </li>
           <li><a href="#OuterTypeNumber_Example_of_Usage">Example of Usage</a></li>
@@ -54,7 +54,7 @@
             <tr>
               <td><a id="max"/><a href="#max">max</a></td>
               <td>Specify the maximum number of outer types allowed.</td>
-              <td><a href="../../property_types.html#int">int</a></td>
+              <td><a href="../../property-types.html#int">int</a></td>
               <td><code>1</code></td>
               <td>5.0</td>
             </tr>

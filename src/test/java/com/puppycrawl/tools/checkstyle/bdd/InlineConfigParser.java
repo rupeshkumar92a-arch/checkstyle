@@ -303,60 +303,9 @@ public final class InlineConfigParser {
      */
     private static final Set<String> SUPPRESSED_VALIDATE_MESSAGE_FILES = Set.of(
             "checks/coding/equalshashcode/Example1.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestIgnoreMethodNames.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestEnhancedInstanceof.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestLegalAbstractClassNames.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestMemberModifiers.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestPlainAndArraysTypes.java",
-            "checks/coding/illegaltype/"
-                    + "InputIllegalTypeRecordsWithMemberModifiersDefault.java",
-            "checks/coding/illegaltype/InputIllegalTypeRecordsWithMemberModifiersFinal.java",
-            "checks/coding/illegaltype/"
-                    + "InputIllegalTypeRecordsWithMemberModifiersPrivateFinal.java",
-            "checks/coding/illegaltype/"
-                    + "InputIllegalTypeRecordsWithMemberModifiersPublicProtectedStatic.java",
-            "checks/coding/illegaltype/InputIllegalTypeSameFileNameFalsePositive.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestSameFileNameGeneral.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestStarImports.java",
-            "checks/coding/illegaltype/InputIllegalTypeTestStaticImports.java",
             "checks/coding/noclone/Example1.java",
-            "checks/coding/unusedlocalvariable/Example1.java",
-            "checks/coding/unusedlocalvariable/Example2.java",
-            "checks/coding/unusedlocalvariable/Example4.java",
-            "checks/coding/unusedlocalvariable/InputUnusedLocalVariable3.java",
-            "checks/coding/unusedlocalvariable/InputUnusedLocalVariableNestedClasses4.java",
-            "checks/coding/unusedlocalvariable/InputUnusedLocalVariableNestedClasses5.java",
-            "checks/coding/unusedlocalvariable/InputUnusedLocalVariableNestedClasses6.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariableNestedClasses7.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariableAllowNamedPatternVariables.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariablePatternVariables.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariablePatternVariables2.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariablePatternVariablesAllowUnnamed.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariablePatternVariablesCondition.java",
-            "checks/coding/unusedlocalvariable/"
-                    + "InputUnusedLocalVariablePatternVariablesCondition2.java",
-            "checks/coding/unusedlocalvariable/InputUnusedLocalVariableUnnamedTryCatch.java",
-            "checks/imports/avoidstarimport/InputAvoidStarImportExcludes.java",
-            "checks/sizes/recordcomponentnumber/Example1.java",
             "checks/sizes/recordcomponentnumber/Example2.java",
-            "checks/whitespace/separatorwrap/Example1.java",
-            "com/google/checkstyle/test/chapter5naming/rule522classnames/"
-                    + "InputClassNamesWithUnderscore.java",
-            "com/google/checkstyle/test/chapter5naming/rule53camelcase/"
-                    + "InputUnderscoreUsedInNames.java",
-            "com/openjdk/checkstyle/test/chapterformatting/"
-                    + "ruleorderofconstructorsandoverloadedmethods/"
-                    + "InputOrderOfConstructorsAndOverloadedMethodsOne.java",
-            "com/openjdk/checkstyle/test/chapternaming/ruletypevariables/"
-                    + "InputTypeVariablesOne.java",
-            "com/openjdk/checkstyle/test/chapternaming/rulevariables/"
-                    + "InputVariablesInvalid.java"
+            "checks/whitespace/separatorwrap/Example1.java"
     );
 
     /**
@@ -458,7 +407,7 @@ public final class InlineConfigParser {
                 "com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck");
     }
 
-    /** Stop instances being created. **/
+    /** Stop instances being created. */
     private InlineConfigParser() {
     }
 
@@ -474,7 +423,8 @@ public final class InlineConfigParser {
      * @throws Exception if unable to read file or file not formatted properly.
      */
     private static TestInputConfiguration parse(String inputFilePath,
-                                                boolean setFilteredViolations) throws Exception {
+                                                boolean setFilteredViolations)
+            throws Exception {
         final TestInputConfiguration.Builder testInputConfigBuilder =
                 new TestInputConfiguration.Builder();
         final Path filePath = Path.of(inputFilePath);
@@ -511,7 +461,7 @@ public final class InlineConfigParser {
             throw new CheckstyleException("Failed to set violations in " + inputFilePath, exc);
         }
 
-        return testInputConfigBuilder.build().getViolations();
+        return testInputConfigBuilder.build().violations();
     }
 
     public static List<TestInputViolation> getFilteredViolationsFromInputFile(String inputFilePath)
@@ -530,7 +480,7 @@ public final class InlineConfigParser {
             throw new CheckstyleException("Failed to set violations in " + inputFilePath, exc);
         }
 
-        return testInputConfigBuilder.build().getFilteredViolations();
+        return testInputConfigBuilder.build().filteredViolations();
     }
 
     public static TestInputConfiguration parseWithFilteredViolations(String inputFilePath)
@@ -987,7 +937,8 @@ public final class InlineConfigParser {
     }
 
     private static void validateProperties(Map<String, String> propertiesWithMissingDefaultTag,
-            List<String> unusedProperties) throws CheckstyleException {
+            List<String> unusedProperties)
+                    throws CheckstyleException {
 
         if (!propertiesWithMissingDefaultTag.isEmpty()) {
 
@@ -1013,7 +964,8 @@ public final class InlineConfigParser {
 
     private static void validateDefaultProperties(
         Map<Object, Object> actualProperties,
-        Map<String, String> defaultProperties) throws CheckstyleException {
+        Map<String, String> defaultProperties)
+                throws CheckstyleException {
 
         final Map<String, String> propertiesWithMissingDefaultTag = actualProperties
                 .entrySet().stream()
@@ -1295,7 +1247,7 @@ public final class InlineConfigParser {
             TestInputConfiguration.Builder inputConfigBuilder,
             List<String> lines, boolean useFilteredViolations,
             int lineNo, boolean specifyViolationMessage)
-            throws CheckstyleException {
+                    throws CheckstyleException {
         final String line = lines.get(lineNo);
 
         boolean matched = isRelativeLineViolationProcessed(inputConfigBuilder, lines, line, lineNo,
@@ -1324,7 +1276,8 @@ public final class InlineConfigParser {
 
     private static boolean isRelativeLineViolationProcessed(
             TestInputConfiguration.Builder inputConfigBuilder, List<String> lines,
-            String line, int lineNo, boolean specifyViolationMessage) throws CheckstyleException {
+            String line, int lineNo, boolean specifyViolationMessage)
+                    throws CheckstyleException {
         final Matcher violationsAboveMatcherWithMessages =
                 VIOLATIONS_ABOVE_PATTERN_WITH_MESSAGES.matcher(line);
         final Matcher violationsSomeLinesAboveMatcher =
@@ -1359,7 +1312,8 @@ public final class InlineConfigParser {
 
     private static boolean isMultipleViolationProcessed(
             TestInputConfiguration.Builder inputConfigBuilder, String line,
-            int lineNo, boolean specifyViolationMessage) throws CheckstyleException {
+            int lineNo, boolean specifyViolationMessage)
+                    throws CheckstyleException {
         final Matcher multipleViolationsMatcher = MULTIPLE_VIOLATIONS_PATTERN.matcher(line);
         final Matcher multipleViolationsAboveMatcher =
                 MULTIPLE_VIOLATIONS_ABOVE_PATTERN.matcher(line);
@@ -1401,7 +1355,8 @@ public final class InlineConfigParser {
 
     private static List<TestInputViolation> getExpectedViolationsForSpecificLine(
             List<String> lines, int lineNo, int violationLineNum,
-            Matcher matcher, boolean specifyViolationMessage) throws CheckstyleException {
+            Matcher matcher, boolean specifyViolationMessage)
+                    throws CheckstyleException {
         final List<TestInputViolation> results = new ArrayList<>();
 
         final int expectedMessageCount =
@@ -1600,7 +1555,8 @@ public final class InlineConfigParser {
      * @throws CheckstyleException if violation message is not specified
      */
     private static void checkWhetherViolationSpecified(boolean shouldViolationMsgBeSpecified,
-            String violationMessage, int lineNum) throws CheckstyleException {
+            String violationMessage, int lineNum)
+                    throws CheckstyleException {
         if (shouldViolationMsgBeSpecified && violationMessage == null) {
             throw new CheckstyleException(
                     "Violation message should be specified on line " + lineNum);

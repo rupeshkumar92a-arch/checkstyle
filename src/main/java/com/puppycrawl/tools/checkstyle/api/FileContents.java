@@ -115,7 +115,7 @@ public final class FileContents implements CommentListener {
      *
      * @param startLineNo the starting line number
      * @param startColNo the starting column number
-     **/
+     */
     public void reportSingleLineComment(int startLineNo, int startColNo) {
         final String line = line(startLineNo - 1);
         final String[] txt = {line.substring(startColNo)};
@@ -137,7 +137,7 @@ public final class FileContents implements CommentListener {
      * @param startColNo the starting column number
      * @param endLineNo the ending line number
      * @param endColNo the ending column number
-     **/
+     */
     public void reportBlockComment(int startLineNo, int startColNo,
             int endLineNo, int endColNo) {
         final String[] cComment = extractBlockComment(startLineNo, startColNo,
@@ -172,7 +172,7 @@ public final class FileContents implements CommentListener {
      * @param endLineNo the ending line number
      * @param endColNo the ending column number
      * @return block comment as an array
-     **/
+     */
     private String[] extractBlockComment(int startLineNo, int startColNo,
             int endLineNo, int endColNo) {
         final String[] returnValue;
@@ -184,8 +184,8 @@ public final class FileContents implements CommentListener {
         else {
             returnValue = new String[endLineNo - startLineNo + 1];
             returnValue[0] = line(startLineNo - 1).substring(startColNo);
-            for (int i = startLineNo; i < endLineNo; i++) {
-                returnValue[i - startLineNo + 1] = line(i);
+            for (int index = startLineNo; index < endLineNo; index++) {
+                returnValue[index - startLineNo + 1] = line(index);
             }
             returnValue[returnValue.length - 1] = line(endLineNo - 1).substring(0,
                     endColNo + 1);
@@ -219,7 +219,7 @@ public final class FileContents implements CommentListener {
      * @noinspection DeprecatedIsStillUsed
      * @noinspectionreason DeprecatedIsStillUsed - Method used in unit testing to verify
      *             legacy API behavior.
-     **/
+     */
     @Deprecated(since = "13.9.0")
     public TextBlock getJavadocBefore(int lineNoBefore) {
         // Lines start at 1 to the callers perspective, so need to take off 2
@@ -280,7 +280,7 @@ public final class FileContents implements CommentListener {
      *
      * @param lineNo the line number to check
      * @return if the specified line consists only of tabs and spaces.
-     **/
+     */
     public boolean lineIsBlank(int lineNo) {
         return CommonUtil.isBlank(line(lineNo));
     }
@@ -291,7 +291,7 @@ public final class FileContents implements CommentListener {
      * @param lineNo  the line number to check
      * @return if the specified line consists of only a single-line comment
      *         without code.
-     **/
+     */
     public boolean lineIsComment(int lineNo) {
         return MATCH_SINGLELINE_COMMENT.matcher(line(lineNo)).matches();
     }
@@ -304,7 +304,7 @@ public final class FileContents implements CommentListener {
      * @param endLineNo the ending line number
      * @param endColNo the ending column number
      * @return true if the positions intersects with a comment.
-     **/
+     */
     public boolean hasIntersectionWithComment(int startLineNo,
             int startColNo, int endLineNo, int endColNo) {
         return hasIntersectionWithBlockComment(startLineNo, startColNo, endLineNo, endColNo)

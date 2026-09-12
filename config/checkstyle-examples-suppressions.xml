@@ -102,12 +102,15 @@
   <suppress id="presenceOfCompilationComment"
             files="beforeexecutionexclusionfilefilter/.*"/>
 
+  <!-- Module declarations compile only in files named 'module-info.java', but example
+       files must be named 'ExampleN.java'. These examples can never compile, so they
+       cannot carry a truthful 'Compilable with JavaN' comment. -->
+  <suppress id="presenceOfCompilationComment"
+            files="moduledirectiveorder/.*"/>
+
   <!-- Without showing symbol, user can get confused which one we are referring to -->
   <suppress id="discouragedRegexpInViolationMessage"
     files="operatorwrap/Example1.java"/>
-  <!-- Example contains '[' in violation message intentionally -->
-  <suppress id="discouragedRegexpInViolationMessage"
-    files="arraybracketnowhitespace/Example1.java"/>
   <suppress id="discouragedRegexpInViolationMessage"
     files="operatorwrap/Example2.java"/>
   <!-- it prints user regexp -->
@@ -124,7 +127,7 @@
 
   <!-- Suppress forbidden regex messages for avoidstarimport examples -->
   <suppress id="forbiddenRegexpInViolationMessage"
-    files="avoidstarimport/Example[1-6].java"/>
+    files="avoidstarimport/(Example|UseCase)[1-9].java"/>
 
   <suppress checks="CommentsIndentation"
     files="singlespaceseparator/Example[12].java"/>
@@ -151,7 +154,7 @@
 
   <!-- Examples contains important violations that need to be shown -->
   <suppress checks="FileLength"
-    files="illegaltype/Example\d+.*"/>
+    files="illegaltype/(Example|UseCase)\d+.*"/>
 
   <!-- Examples contains important violations that need to be shown -->
   <suppress checks="FileLength"
@@ -163,9 +166,13 @@
   <suppress checks="FileLength"
     files="visibilitymodifier/Example\d+.java"/>
 
+  <!-- Examples need to show that member, subpackage, nested class and package references are not checked -->
+  <suppress checks="FileLength"
+    files="javadoclinkwellknownapi/Example\d+.*"/>
+
   <!-- No new line by design to show violation -->
   <suppress checks="NewlineAtEndOfFile"
-    files="newlineatendoffile/Example\d+.*"/>
+    files="newlineatendoffile/(Example|UseCase)\d+.*"/>
 
   <!-- We need to maintain indentation on xml part -->
   <suppress checks="LineLength"
@@ -175,7 +182,7 @@
   <suppress checks="LineLength"
     files="suppresswithplaintextcommentfilter/UseCase1.java"/>
   <suppress checks="LineLength"
-    files="linelength/Example\d+.*"/>
+    files="linelength/(Example|UseCase)\d+.*"/>
   <!-- it prints user regexp -->
   <suppress checks="LineLength"
             files="regexponfilename/Example[2].java"/>
@@ -196,8 +203,6 @@
   <!-- Can't add violations to another lines because of design of the check. -->
   <suppress checks="LineLength"
             files="lineending/Example3.java"/>
-  <suppress checks="LineLength"
-            files="lineending/Example4.java"/>
   <suppress checks="LineLength"
             files="overloadmethodsdeclarationorder/Example2.java"/>
 

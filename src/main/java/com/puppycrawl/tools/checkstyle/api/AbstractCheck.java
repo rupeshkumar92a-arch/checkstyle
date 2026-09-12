@@ -30,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 /**
  * The base class for checks.
  *
- * @see <a href="{@docRoot}/../writingchecks.html" target="_top">Writing
+ * @see <a href="{@docRoot}/../writing-checks.html" target="_top">Writing
  *     your own checks</a>
  * @noinspection NoopMethodInAbstractClass
  * @noinspectionreason NoopMethodInAbstractClass - we allow each check to
@@ -124,7 +124,7 @@ public abstract class AbstractCheck extends AbstractViolationReporter {
     /**
      * Returns the sorted set of {@link Violation}.
      *
-     * @return the sorted set of {@link Violation}.
+     * @return the sorted set of {@code Violation}.
      */
     public SortedSet<Violation> getViolations() {
         return new TreeSet<>(context.get().violations);

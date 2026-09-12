@@ -44,7 +44,7 @@
         <p>
           For example, this check finds the obsolete braces in
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 public void guessTheOutput()
 {
   int whichIsWhich = 0;
@@ -58,7 +58,7 @@ public void guessTheOutput()
         <p>
           and debugging / refactoring leftovers such as
         </p>
-        <div class="wrapper"><pre class="prettyprint"><code class="language-java">
+        <div class="wrapper"><pre class="prettyprint"><code>
 // if (conditionThatIsNotUsedAnyLonger)
 {
   System.out.println("unconditional");
@@ -87,7 +87,7 @@ public void guessTheOutput()
             <tr>
               <td><a id="allowInSwitchCase"/><a href="#allowInSwitchCase">allowInSwitchCase</a></td>
               <td>Allow nested blocks if they are the only child of a switch case.</td>
-              <td><a href="../../property_types.html#boolean">boolean</a></td>
+              <td><a href="../../property-types.html#boolean">boolean</a></td>
               <td><code>false</code></td>
               <td>3.2</td>
             </tr>

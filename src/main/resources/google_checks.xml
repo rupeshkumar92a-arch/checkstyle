@@ -23,11 +23,6 @@
   <property name="severity" value="${org.checkstyle.google.severity}" default="warning"/>
 
   <property name="fileExtensions" value="java, properties, xml"/>
-  <!-- Excludes all 'module-info.java' files              -->
-  <!-- See https://checkstyle.org/filefilters/index.html -->
-  <module name="BeforeExecutionExclusionFileFilter">
-    <property name="fileNamePattern" value="module\-info\.java$"/>
-  </module>
 
   <module name="SuppressWarningsFilter"/>
 
@@ -78,6 +73,14 @@
     <property name="onCommentFormat" value='.'/>
   </module>
   <module name="TreeWalker">
+    <module name="IllegalTokenText">
+      <property name="id" value="whitespaceCharactersMustBeEscaped"/>
+      <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL, TEXT_BLOCK_CONTENT"/>
+      <property name="format"
+        value="[\u0009\u000B\u000C\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]"/>
+      <property name="message"
+                value="Whitespace other than the ASCII space must be escaped."/>
+    </module>
     <module name="OuterTypeFilename"/>
     <module name="MatchXpath">
       <property name="id" value="singleLineCommentStartWithSpace"/>
@@ -99,11 +102,22 @@
       <property name="allowByTailComment" value="true"/>
       <property name="allowNonPrintableEscapes" value="true"/>
     </module>
+    <module name="PackageDeclaration"/>
+    <module name="MatchXpath">
+      <property name="id" value="CompactSourceFileNotAllowed"/>
+      <property name="query" value="/COMPACT_COMPILATION_UNIT"/>
+      <message key="matchxpath.match" value="Compact source file is not allowed."/>
+    </module>
     <module name="AvoidStarImport"/>
+    <module name="AvoidModuleImport"/>
     <module name="OneTopLevelClass"/>
     <module name="NoLineWrap">
       <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
     </module>
+
+    <!-- Modules -->
+    <module name="ModuleDirectiveOrder"/>
+
     <module name="NeedBraces">
       <property name="tokens"
                value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
@@ -209,7 +223,9 @@
     </module>
     <module name="ArrayBracketNoWhitespace"/>
     <module name="SingleSpaceSeparator"/>
-    <module name="OneStatementPerLine"/>
+    <module name="OneStatementPerLine">
+      <property name="treatTryResourcesAsStatement" value="true"/>
+    </module>
     <module name="MultipleVariableDeclarations"/>
     <module name="ArrayTypeStyle"/>
     <module name="JavadocLeadingAsteriskAlign"/>
@@ -294,12 +310,14 @@
                value="Record component name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LocalVariableName">
-      <property name="format" value="^(_|[a-z]([a-z0-9][a-zA-Z0-9]*)?)$"/>
+      <property name="format"
+                value="^(_|[a-z](?=[a-z0-9]|$)(?:[a-zA-Z]|[0-9]+(?:_[0-9]+)*)*)$"/>
       <message key="name.invalidPattern"
              value="Local variable name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LocalFinalVariableName">
-      <property name="format" value="^(_|[a-z]([a-z0-9][a-zA-Z0-9]*)?)$"/>
+      <property name="format"
+                value="^(_|[a-z](?=[a-z0-9]|$)(?:[a-zA-Z]|[0-9]+(?:_[0-9]+)*)*)$"/>
       <property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF, RESOURCE"/>
       <message key="name.invalidPattern"
                value="Local final variable name ''{0}'' must match pattern ''{1}''."/>
@@ -408,7 +426,7 @@
       <property name="id" value="AnnotationLocationTypeAndPackageAndMembers"/>
       <property name="tokens"
                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, RECORD_DEF, ANNOTATION_DEF,
-                PACKAGE_DEF, ENUM_CONSTANT_DEF, ANNOTATION_FIELD_DEF"/>
+                PACKAGE_DEF, ENUM_CONSTANT_DEF, ANNOTATION_FIELD_DEF, MODULE_DEF"/>
       <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
     </module>
     <module name="AnnotationLocation">
