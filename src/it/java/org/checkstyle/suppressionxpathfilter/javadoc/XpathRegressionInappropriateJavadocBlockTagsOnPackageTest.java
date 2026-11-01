@@ -21,14 +21,12 @@ package org.checkstyle.suppressionxpathfilter.javadoc;
 
 import static com.puppycrawl.tools.checkstyle.checks.javadoc.InappropriateJavadocBlockTagsOnPackageCheck.MSG_INAPPROPRIATE_TAG;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import org.checkstyle.suppressionxpathfilter.AbstractXpathTestSupport;
 import org.junit.jupiter.api.Test;
 
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.InappropriateJavadocBlockTagsOnPackageCheck;
 
 public class XpathRegressionInappropriateJavadocBlockTagsOnPackageTest
@@ -50,14 +48,8 @@ public class XpathRegressionInappropriateJavadocBlockTagsOnPackageTest
 
     @Test
     public void testPackage1() throws Exception {
-        final File fileToProcess =
-                new File(getPath("InputXpathInappropriateJavadocBlockTagsOnPackage1.java"));
-
-        final DefaultConfiguration moduleConfig =
-                createModuleConfig(InappropriateJavadocBlockTagsOnPackageCheck.class);
-
         final String[] expectedViolation = {
-            "4:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
+            "11:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
                 MSG_INAPPROPRIATE_TAG, "return", "package"),
         };
 
@@ -65,20 +57,16 @@ public class XpathRegressionInappropriateJavadocBlockTagsOnPackageTest
                 "/COMPILATION_UNIT",
                 "/COMPILATION_UNIT/PACKAGE_DEF");
 
-        runVerifications(moduleConfig, fileToProcess, expectedViolation,
-                expectedXpathQueries);
+        verifyXpathWithInlineConfigParser(
+                getPath("InputXpathInappropriateJavadocBlockTagsOnPackage1.java"),
+                expectedXpathQueries,
+                expectedViolation);
     }
 
     @Test
     public void testPackage2() throws Exception {
-        final File fileToProcess =
-                new File(getPath("InputXpathInappropriateJavadocBlockTagsOnPackage2.java"));
-
-        final DefaultConfiguration moduleConfig =
-                createModuleConfig(InappropriateJavadocBlockTagsOnPackageCheck.class);
-
         final String[] expectedViolation = {
-            "4:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
+            "11:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
                 MSG_INAPPROPRIATE_TAG, "throws", "package"),
         };
 
@@ -86,20 +74,16 @@ public class XpathRegressionInappropriateJavadocBlockTagsOnPackageTest
                 "/COMPILATION_UNIT",
                 "/COMPILATION_UNIT/PACKAGE_DEF");
 
-        runVerifications(moduleConfig, fileToProcess, expectedViolation,
-                expectedXpathQueries);
+        verifyXpathWithInlineConfigParser(
+                getPath("InputXpathInappropriateJavadocBlockTagsOnPackage2.java"),
+                expectedXpathQueries,
+                expectedViolation);
     }
 
     @Test
     public void testPackage3() throws Exception {
-        final File fileToProcess =
-                new File(getPath("InputXpathInappropriateJavadocBlockTagsOnPackage3.java"));
-
-        final DefaultConfiguration moduleConfig =
-                createModuleConfig(InappropriateJavadocBlockTagsOnPackageCheck.class);
-
         final String[] expectedViolation = {
-            "4:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
+            "11:1: " + getCheckMessage(InappropriateJavadocBlockTagsOnPackageCheck.class,
                 MSG_INAPPROPRIATE_TAG, "param", "package"),
         };
 
@@ -107,8 +91,10 @@ public class XpathRegressionInappropriateJavadocBlockTagsOnPackageTest
                 "/COMPILATION_UNIT",
                 "/COMPILATION_UNIT/PACKAGE_DEF");
 
-        runVerifications(moduleConfig, fileToProcess, expectedViolation,
-                expectedXpathQueries);
+        verifyXpathWithInlineConfigParser(
+                getPath("InputXpathInappropriateJavadocBlockTagsOnPackage3.java"),
+                expectedXpathQueries,
+                expectedViolation);
     }
 
 }
