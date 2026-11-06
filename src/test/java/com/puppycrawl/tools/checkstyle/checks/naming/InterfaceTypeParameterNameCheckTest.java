@@ -83,4 +83,36 @@ public class InterfaceTypeParameterNameCheckTest
                 getPath("InputInterfaceTypeParameterName1.java"), expected);
     }
 
+    @Test
+    public void testCompactSourceFileDefault() throws Exception {
+        final String pattern = "^[A-Z]$";
+
+        final String[] expected = {
+            "13:15: " + getCheckMessage(MSG_INVALID_PATTERN, "TT", pattern),
+            "16:18: " + getCheckMessage(MSG_INVALID_PATTERN, "Second", pattern),
+            "20:21: " + getCheckMessage(MSG_INVALID_PATTERN, "LocalBad", pattern),
+            "25:22: " + getCheckMessage(MSG_INVALID_PATTERN, "NestedBad", pattern),
+            "32:22: " + getCheckMessage(MSG_INVALID_PATTERN, "EnumBad", pattern),
+            "37:24: " + getCheckMessage(MSG_INVALID_PATTERN, "RecordBad", pattern),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath(
+                        "compact/InputInterfaceTypeParameterNameCompactSourceFileDefault.java"),
+                expected);
+    }
+
+    @Test
+    public void testCompactSourceFileProperties() throws Exception {
+        final String pattern = "^[A-Z][a-zA-Z0-9]+$";
+
+        final String[] expected = {
+            "13:15: " + getCheckMessage(MSG_INVALID_PATTERN, "T", pattern),
+            "23:25: " + getCheckMessage(MSG_INVALID_PATTERN, "foo", pattern),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath(
+                        "compact/InputInterfaceTypeParameterNameCompactSourceFileProperties.java"),
+                expected);
+    }
+
 }
