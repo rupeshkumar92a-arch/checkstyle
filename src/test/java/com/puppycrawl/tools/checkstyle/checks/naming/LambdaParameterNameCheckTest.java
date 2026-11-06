@@ -127,4 +127,39 @@ public class LambdaParameterNameCheckTest extends AbstractModuleTestSupport {
                 getPath("InputLambdaParameterNameSwitchRule.java"), expected);
     }
 
+    @Test
+    public void testCompactSourceFileDefault() throws Exception {
+        final String pattern = "^([a-z][a-zA-Z0-9]*|_)$";
+
+        final String[] expected = {
+            "14:34: " + getCheckMessage(MSG_INVALID_PATTERN, "Value", pattern),
+            "16:36: " + getCheckMessage(MSG_INVALID_PATTERN, "B", pattern),
+            "17:50: " + getCheckMessage(MSG_INVALID_PATTERN, "C", pattern),
+            "21:40: " + getCheckMessage(MSG_INVALID_PATTERN, "Lcl", pattern),
+            "25:40: " + getCheckMessage(MSG_INVALID_PATTERN, "Inn", pattern),
+            "29:43: " + getCheckMessage(MSG_INVALID_PATTERN, "Shp", pattern),
+            "34:40: " + getCheckMessage(MSG_INVALID_PATTERN, "Enm", pattern),
+            "38:43: " + getCheckMessage(MSG_INVALID_PATTERN, "Rec", pattern),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath(
+                        "compact/InputLambdaParameterNameCompactSourceFileDefault.java"),
+                expected);
+    }
+
+    @Test
+    public void testCompactSourceFileProperties() throws Exception {
+        final String pattern = "^arg[0-9]$";
+
+        final String[] expected = {
+            "14:34: " + getCheckMessage(MSG_INVALID_PATTERN, "value", pattern),
+            "15:39: " + getCheckMessage(MSG_INVALID_PATTERN, "two", pattern),
+            "22:40: " + getCheckMessage(MSG_INVALID_PATTERN, "arg", pattern),
+        };
+        verifyWithInlineConfigParser(
+                getNonCompilablePath(
+                        "compact/InputLambdaParameterNameCompactSourceFileProperties.java"),
+                expected);
+    }
+
 }
